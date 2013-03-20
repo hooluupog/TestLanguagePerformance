@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "sys/time.h"
 
-int count = 0; //全局变量，对搬动计数
+int count = 0; //鍏ㄥ眬鍙橀噺锛屽鎼姩璁℃暟
 unsigned long GetTickCount()
 {
 	struct timeval tv;
