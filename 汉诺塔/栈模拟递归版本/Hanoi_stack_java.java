@@ -1,10 +1,10 @@
 import java.util.Stack;
 public class Hanoi_stack_java{
-	//ÓÃÕ»Ä£Äâµİ¹éººÅµËş
+        //ç”¨æ ˆæ¨¡æ‹Ÿé€’å½’æ±‰è¯ºå¡”
 	public void hanoi(int n){
 		int count = 0;
 		Stack<Hanoi_state> stack = new Stack<Hanoi_state>();
-		stack.setSize(20);//Ô¤·ÖÅäÕ¼ÈİÁ¿
+		stack.setSize(20);//é¢„åˆ†é…æ ˆå®¹é‡
 		Hanoi_state state = new Hanoi_state(n,n,'A','B','C');
 		stack.push(state);
 		Hanoi_state tmpState = null;
@@ -33,8 +33,8 @@ class Hanoi_state{
 	public char src;
 	public char des;
 	public char tmp;
-	public int num;//ÅÌ×ÓÊıÄ¿	 
-	public int disk;//µ±Ç°ÒÆ¶¯µÄÅÌºÅ
+	public int num;//ç›˜å­æ•°ç›®
+	public int disk;//å½“å‰ç§»åŠ¨çš„ç›˜å·
 
 	public Hanoi_state(int num,int disk,char src,char tmp,char des){
 		this.num = num;
