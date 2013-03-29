@@ -10,21 +10,21 @@ typedef int Status;
 #define OWERFLOW -2
 #define STACK_SIZE 100
 typedef struct Stack{
-	ElemType top;  //Õ»¶¥ÓÎ±ê
-	ElemType data[STACK_SIZE]; //Õ»Êı¾İ
+	ElemType top;  //æ ˆé¡¶æ¸¸æ ‡
+	ElemType data[STACK_SIZE]; //æ ˆæ•°æ®
 	char x[STACK_SIZE];
 	char y[STACK_SIZE];
 	char z[STACK_SIZE];
 	int  n[STACK_SIZE];
 }*SqStack;
 
-Status InitStack(SqStack &s);//Õ»³õÊ¼»¯
-Status Push(SqStack s,ElemType e,int n,char x,char y,char z);//ÈëÕ»
-Status Pop(SqStack s,ElemType &e,int &n,char &x,char &y,char &z);//³öÕ»
+Status InitStack(SqStack &s);//æ ˆåˆå§‹åŒ–
+Status Push(SqStack s,ElemType e,int n,char x,char y,char z);//å…¥æ ˆ
+Status Pop(SqStack s,ElemType &e,int &n,char &x,char &y,char &z);//å‡ºæ ˆ
 Status IsEmpty(SqStack s);
 
 Status InitStack(SqStack &s)
-	//Õ»³õÊ¼»¯
+	//æ ˆåˆå§‹åŒ–
 {
 	s = (SqStack)malloc(sizeof(Stack));
 	if(!s) exit(OWERFLOW);
@@ -33,12 +33,12 @@ Status InitStack(SqStack &s)
 }
 
 Status Push(SqStack s,ElemType e,int n,char x,char y,char z)
-	//ÈëÕ»
+	//å…¥æ ˆ
 {
-	if(s->top == STACK_SIZE-1) return ERROR;//Õ»Âú
+	if(s->top == STACK_SIZE-1) return ERROR;//æ ˆæ»¡
 	else {
 		s->top++;
-		s->data[s->top] = e; //²åÈëĞÂµÄÔªËØ
+		s->data[s->top] = e; //æ’å…¥æ–°çš„å…ƒç´ 
 		s->n[s->top] = n;
 		s->x[s->top] = x;
 		s->y[s->top] = y;
@@ -47,9 +47,9 @@ Status Push(SqStack s,ElemType e,int n,char x,char y,char z)
 	return OK;
 }
 Status Pop(SqStack s,ElemType &e,int &n,char &x,char &y,char &z)
-	//³öÕ»
+	//å‡ºæ ˆ
 {
-	if(s->top == -1) return ERROR;//Õ»¿Õ
+	if(s->top == -1) return ERROR;//æ ˆç©º
 	else{
 	       	e = s->data[s->top];
 			n = s->n[s->top];
@@ -67,10 +67,10 @@ Status IsEmpty(SqStack s)
 	else return 0;
 }
 
-/*ººÅµËşµİ¹é°æ±¾
- * ½«Ëş×ùxÉÏ°´Ö±¾¶ÓĞĞ¡µ½´óÇÒ×ÔÉÏ¶øÏÂ±àºÅÎª1ÖÁnµÄn¸öÔ²ÅÌ°´¹æÔò°áµ½Ëş×ùz£¬y×÷Îª¸¨Öú
- * ÅÌ£¬ÆäÖĞÖ±¾¶´óµÄÅÌ²»ÄÜ·ÅÔÚÖ±¾¶Ğ¡µÄÅÌ×ÓÉÏ,Ã¿´ÎÖ»ÄÜÒÆ¶¯Ò»¸öÅÌ
- * int count = 0; //È«¾Ö±äÁ¿£¬¶Ô°á¶¯¼ÆÊı
+/*æ±‰è¯ºå¡”é€’å½’ç‰ˆæœ¬
+ * å°†å¡”åº§xä¸ŠæŒ‰ç›´å¾„æœ‰å°åˆ°å¤§ä¸”è‡ªä¸Šè€Œä¸‹ç¼–å·ä¸º1è‡³nçš„nä¸ªåœ†ç›˜æŒ‰è§„åˆ™æ¬åˆ°å¡”åº§zï¼Œyä½œä¸ºè¾…åŠ©
+ * ç›˜ï¼Œå…¶ä¸­ç›´å¾„å¤§çš„ç›˜ä¸èƒ½æ”¾åœ¨ç›´å¾„å°çš„ç›˜å­ä¸Š,æ¯æ¬¡åªèƒ½ç§»åŠ¨ä¸€ä¸ªç›˜
+ * int count = 0; //å…¨å±€å˜é‡ï¼Œå¯¹æ¬åŠ¨è®¡æ•°
  *	void hanoi(int n,char x,char y,char z)
  *	{
  *		if(n == 1)
@@ -83,22 +83,22 @@ Status IsEmpty(SqStack s)
  *	}
  */
 
-int count = 0; //È«¾Ö±äÁ¿£¬¶Ô°á¶¯¼ÆÊı
+int count = 0; //å…¨å±€å˜é‡ï¼Œå¯¹æ¬åŠ¨è®¡æ•°
 void hanoi(int n,char x,char y,char z){
-	//Õ»Ä£ÄâººÅµËşµİ¹éËã·¨
+	//æ ˆæ¨¡æ‹Ÿæ±‰è¯ºå¡”é€’å½’ç®—æ³•
 	SqStack A;
 	int disk;
 	InitStack(A);
 	Push(A,n,n,x,y,z);
-	//Ä£Äâµİ¹é¿ªÊ¼
+	//æ¨¡æ‹Ÿé€’å½’å¼€å§‹
 	while(!IsEmpty(A))
 	{
 		Pop(A,n,disk,x,y,z);
-		if(n == 1) //n=1£¬Ä£Äâµİ¹é³ö¿Ú£¬disk¼ÇÂ¼ÒªÒÆ¶¯µÄÅÌºÅ
+		if(n == 1) //n=1ï¼Œæ¨¡æ‹Ÿé€’å½’å‡ºå£ï¼Œdiskè®°å½•è¦ç§»åŠ¨çš„ç›˜å·
 			count++;
 			//printf("%d. Move disk %d from %c to %c\n",++count,disk,x,z);
 		else{
-			//×¢ÒâÕ»µÄÑ¹ÈëË³ĞòºÍµİ¹éº¯ÊıµÄµ÷ÓÃÊÇÕıºÃÏà·´µÄ
+			//æ³¨æ„æ ˆçš„å‹å…¥é¡ºåºå’Œé€’å½’å‡½æ•°çš„è°ƒç”¨æ˜¯æ­£å¥½ç›¸åçš„
 			Push(A,n-1,n-1,y,x,z);
 			Push(A,1,n,x,y,z);
 			Push(A,n-1,n-1,x,z,y);
@@ -122,7 +122,3 @@ int main(){
 	end = GetTickCount();
 	printf("%lums\n",(end-start));
 }
-
-
-
-
