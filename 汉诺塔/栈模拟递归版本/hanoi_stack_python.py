@@ -1,11 +1,11 @@
 import datetime
 count = 0
-#Õ»Ä£Äâµİ¹éººÅµËş
+#æ ˆæ¨¡æ‹Ÿé€’å½’æ±‰è¯ºå¡”
 def hanoi(n,x,y,z):
 	stack = [{0,0,0,0,0}]
 	elements = [n,n,x,y,z]
 	stack.append(elements)    #variable stack is a List datastruct used as Stack
-	global count     #ÉùÃ÷µ÷ÓÃµÄÊÇÈ«¾Ö±äÁ¿count£¬¶ø´´½¨µÄ·ÇÁÙÊ±±äÁ¿
+	global count     #å£°æ˜è°ƒç”¨çš„æ˜¯å…¨å±€å˜é‡countï¼Œè€Œåˆ›å»ºçš„éä¸´æ—¶å˜é‡
 	while len(stack) != 1:
 		elem = elements = stack.pop()
 		if(elements[0] == 1):
