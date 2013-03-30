@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import datetime
 count = 0
 #栈模拟递归汉诺塔
