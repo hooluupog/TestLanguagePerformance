@@ -1,2 +1,0 @@
-python and c use buffered stdout by default.
-So java code manually use bufferedWriter and go code manually use bufio to buffer the stdout. Finally,the test will be relatively more precise. 
