@@ -27,6 +27,6 @@ strace -f -F -o output.txt  ./execute > /dev/null    #linux strace tool
 
 time  ./execute > /dev/null      #evaluate the running time of application
 
-go build -gcflags -m xxx.go    #to watch the compiler optimaztion for producing code   eg. inline some fuction
+go build -gcflags -m xxx.go    #to watch the compiler optimization for producing code   eg. inline some fuction
  
 go tool 6g/8g  -S xxx.go > xxx.s    #get  disassembly code from source code
