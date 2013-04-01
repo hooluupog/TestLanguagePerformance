@@ -20,3 +20,10 @@ python
 3)I/O性能测试
 
 其他测试单元代码待补充。。。
+
+测试用到的命令：
+
+strace -f -F -o output.txt  ./execute > /dev/null    #linux strace tool
+time  ./execute > /dev/null      #evaluate the running time of application
+go build -gcflags -m xxx.go    #to watch the compiler optimaztion for producing code   eg. inline some fuction 
+go tool 6g/8g  -S xxx.go > xxx.s    #get  disassembly code from source code
