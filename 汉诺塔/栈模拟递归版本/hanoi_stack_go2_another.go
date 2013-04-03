@@ -1,5 +1,5 @@
 /*和hanoi_stack_go2.go的区别：
-调用Init(size int)方法预先为slice分配了size大小的内存空间*/
+调用SetSize(size int)方法预先为slice分配了size大小的内存空间*/
 
 package main
 
@@ -29,7 +29,7 @@ func (s *Stack) Pop() (value *HanoiState) {
 	}
 	return
 }
-func (s *Stack) Init(size int) {
+func (s *Stack) SetSize(size int) {
 	s.state = make([]HanoiState,size)
 }
 
@@ -41,7 +41,7 @@ type HanoiState struct {
 func hanoi(n int, x byte, y byte, z byte) {
 	var count int = 0
 	stack := new(Stack)
-	stack.Init(100)
+	stack.SetSize(100)
 	hs := HanoiState{n, n, x, y, z}
 	tmp := hs
 	stack.Push(&hs)
