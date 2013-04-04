@@ -6,6 +6,10 @@ syntax on
 "显示行号
 set nu
 
+"windows下设置vim编码
+let &termencoding=&encoding
+set fileencodings=utf-8,gbk,ucs-bom,cp936
+
 "设置taglist (taglist 依赖ctags)
 "设定windows系统中ctags程序的位置
 let Tlist_Ctags_Cmd = '"D:\Program Files\Vim\vim73\ctags.exe"'
@@ -22,7 +26,7 @@ map <silent> <F9> :TlistToggle<cr>
 "快捷键： 鼠标放在要查看的函数上，按ctrl+],进入定义，ctrl+o返回之前位置；
 
 "在函数中移动光标
-"  [{ 转到上一个位于第一列的"{"
+"	[{ 转到上一个位于第一列的"{"
 "	}]  转到下一个位于第一列的"{"
 "	{   转到上一个空行
 "	}   转到下一个空行

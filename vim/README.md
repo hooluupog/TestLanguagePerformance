@@ -15,6 +15,10 @@
     "显示行号
     set nu
     
+    "windows下设置vim编码
+    let &termencoding=&encoding
+    set fileencodings=utf-8,gbk,ucs-bom,cp936
+
     "设置taglist (taglist 依赖ctags)
     "设定windows系统中ctags程序的位置
     let Tlist_Ctags_Cmd = '"D:\Program Files\Vim\vim73\ctags.exe"'
