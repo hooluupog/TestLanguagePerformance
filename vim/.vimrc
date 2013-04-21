@@ -1,10 +1,14 @@
 "golang 语法高亮
 set rtp+=$GOROOT/misc/vim 
-filetype plugin indent on 
 syntax on 
 
 "显示行号
 set nu
+
+"语法缩进"
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd FileType c,h,cpp,go,java,python,json,js setlocal expandtab shiftwidth=4 softtabstop=4
+filetype plugin indent on 
 
 "windows下设置vim编码
 let &termencoding=&encoding
