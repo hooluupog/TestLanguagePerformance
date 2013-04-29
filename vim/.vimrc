@@ -6,6 +6,14 @@ else
     let g:iswindows = 0
 endif
 "------------------------------------------------------------------------------
+"  < 判断操作系统是终端还是gvim>
+"------------------------------------------------------------------------------
+if has("gui_running")
+    let g:isGUI = 1
+else
+    let g:isGUI = 0
+endif
+"------------------------------------------------------------------------------
 
 "设置编程使用的字体
 if g:iswindows
@@ -27,6 +35,11 @@ if !g:iswindows
 	set guioptions-=m "disable menu
 	set guioptions-=T "disable toolbar
 endif	
+
+"设置gvim主题
+if (g:isGUI)
+	colorscheme morning
+endif
 
 "golang 语法高亮
 set rtp+=$GOROOT/misc/vim 
