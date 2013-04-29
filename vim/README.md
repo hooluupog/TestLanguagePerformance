@@ -7,6 +7,36 @@
     4.taglist
     5.golang支持
 #vimrc 配置如下:
+    "  < 判断操作系统是 Windows 还是 Linux >
+    "------------------------------------------------------------------------------
+    if(has("win32") || has("win64") || has("win95") || has("win16"))
+        let g:iswindows = 1
+    else
+        let g:iswindows = 0
+    endif
+    "------------------------------------------------------------------------------
+    
+    "设置编程使用的字体
+    if g:iswindows
+    	"windows下设置vim编码
+    	let &termencoding=&encoding
+    	set fileencodings=ucs-bom,utf-8,cp936,gbk
+    	"windows下设置字体
+    	set guifont=consolas:h10.5
+    	set guioptions-=m "disable menu
+    	set guioptions-=T "disable toolbar
+    endif	
+    if !g:iswindows
+    	"linux下设置vim编码
+    	let &termencoding=&encoding
+    	set fileencodings=ucs-bom,utf-8,cp936,gbk
+    	"linux下设置字体
+    	set guifont=Ubuntu\ Mono\ 10.5 
+    	set gfw=WenQuanYi\ Micro\ Hei\ Mono\ 10
+    	set guioptions-=m "disable menu
+    	set guioptions-=T "disable toolbar
+    endif	
+
     "golang 语法高亮
     set rtp+=$GOROOT/misc/vim 
     filetype plugin indent on 

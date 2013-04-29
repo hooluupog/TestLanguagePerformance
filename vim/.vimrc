@@ -1,3 +1,33 @@
+"  < 判断操作系统是 Windows 还是 Linux >
+"------------------------------------------------------------------------------
+if(has("win32") || has("win64") || has("win95") || has("win16"))
+    let g:iswindows = 1
+else
+    let g:iswindows = 0
+endif
+"------------------------------------------------------------------------------
+
+"设置编程使用的字体
+if g:iswindows
+	"windows下设置vim编码
+	let &termencoding=&encoding
+	set fileencodings=ucs-bom,utf-8,cp936,gbk
+	"windows下设置字体
+	set guifont=consolas:h10.5
+	set guioptions-=m "disable menu
+	set guioptions-=T "disable toolbar
+endif	
+if !g:iswindows
+	"linux下设置vim编码
+	let &termencoding=&encoding
+	set fileencodings=ucs-bom,utf-8,cp936,gbk
+	"linux下设置字体
+	set guifont=Ubuntu\ Mono\ 10.5 
+	set gfw=WenQuanYi\ Micro\ Hei\ Mono\ 10
+	set guioptions-=m "disable menu
+	set guioptions-=T "disable toolbar
+endif	
+
 "golang 语法高亮
 set rtp+=$GOROOT/misc/vim 
 syntax on 
@@ -9,10 +39,6 @@ set nu
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType c,h,cpp,go,java,python,json,js setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4
 filetype plugin indent on 
-
-"windows下设置vim编码
-let &termencoding=&encoding
-set fileencodings=utf-8,gbk,ucs-bom,cp936
 
 "设置taglist (taglist 依赖ctags)
 "设定windows系统中ctags程序的位置
