@@ -47,6 +47,11 @@
     	set guioptions-=T "disable toolbar
     endif	
 
+    "设置gvim的主题
+    if (g:isGUI)
+            colorscheme morning
+    endif
+
     "golang 语法高亮
     set rtp+=$GOROOT/misc/vim 
     filetype plugin indent on 
