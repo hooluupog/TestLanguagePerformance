@@ -12,9 +12,10 @@ unsigned long GetTickCount()
 
 void hanoi(int n,char x,char y,char z)
 {
-    if(n == 1)
+    if(n == 1){
         count++;
-    //printf("%d. Move disk %d from %c to %c\n",++count,n,x,z);
+        //printf("%d. Move disk %d from %c to %c\n",++count,n,x,z);
+    }
     else{
         hanoi(n-1,x,z,y);
         count++;

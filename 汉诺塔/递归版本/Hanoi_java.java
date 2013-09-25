@@ -5,8 +5,9 @@ public class Hanoi_java
     static int count  = 0;
     public static void hanoi(int n,char x, char y, char z)
     {
-        if(n == 1)
+        if(n == 1){
             count++;
+        }
         else{
             hanoi(n-1,x,z,y);
             count++;
