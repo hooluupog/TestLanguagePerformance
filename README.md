@@ -2,10 +2,11 @@
 ======================
 ##不同类型编程语言的简单性能测试
 ###所使用的语言：
-    golang
+    Go
     java
     c/c++
     python
+    Dart
 ###目前已有的测试单元：
 ####1. 递归测试 ——汉诺塔程序
 栈模拟递归——汉诺塔程序     
@@ -17,3 +18,4 @@
     $ time  ./execute > /dev/null      #evaluate the running time of application
     $ go build -gcflags -m xxx.go    #to watch the compiler optimization for producing code   eg. inline some fuction
     $ go tool 6g/8g  -S xxx.go > xxx.s    #get  disassembly code from source code
+    $ $time xxx > /dev/null
