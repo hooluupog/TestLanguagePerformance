@@ -18,4 +18,4 @@
     $ time  ./execute > /dev/null      #evaluate the running time of application
     $ go build -gcflags -m xxx.go    #to watch the compiler optimization for producing code   eg. inline some fuction
     $ go tool 6g/8g  -S xxx.go > xxx.s    #get  disassembly code from source code
-    $ $time xxx > /dev/null
+    $ time xxx > /dev/null
