@@ -12,8 +12,8 @@ void hanoi(n,x,y,z) {
   }
 }
 void main() {
-  var start = new DateTime.now().millisecondsSinceEpoch;
+  var sw = new Stopwatch()..start();
   hanoi(25,'A','B','C');
-  var end = new DateTime.now().millisecondsSinceEpoch;
-  print('${end - start}ms.');
+  sw.stop();
+  print('${sw.elapsedMilliseconds}ms.');
 }
