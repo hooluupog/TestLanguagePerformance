@@ -1,2 +1,2 @@
-`python` and `c` use buffered `stdout` by default.
-So `java` manually use `bufferedWriter` and `go` manually use `bufio` to buffer the `stdout`so that the test will be relatively more precise. 
+Some languages use buffered `stdout`,`print` by default but some not.
+So manually implementing `buffer` for those unbuffered to make the test be relatively more precise. 
