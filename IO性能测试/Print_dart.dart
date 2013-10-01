@@ -1,8 +1,22 @@
 import 'dart:io';
 
 final int NUM = 1 << 25;
-void main(){
-  for(int i = 0; i < NUM;i++){
+void test(n){
+  //var out  = new File('a.out').openSync(mode: WRITE);
+  for(int i = 0; i < n;i++){
     stdout.write(i);
+    //out.writeStringSync(i.toString());
   }
+  //out.close();
+  stdout.close();
+}
+
+void main(){
+  //warm up vm
+  test(3);
+  var sw = new Stopwatch()..start();
+  //the test
+  test(NUM);
+  sw.stop();
+  print('${sw.elapsedMilliseconds} ms.');
 }
