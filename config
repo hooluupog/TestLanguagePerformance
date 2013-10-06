@@ -1,0 +1,11 @@
+# Default github user(qq510371827@mail.com)
+Host github.com
+HostName github.com
+User git
+IdentityFile C:/Users/darkblue/.ssh/github/id_rsa
+
+# Default oschina user(qq510371827@mail.com)
+Host git.oschina.net 
+HostName git.oschina.net
+User git
+IdentityFile C:/Users/darkblue/.ssh/oschina/id_rsa
