@@ -58,6 +58,8 @@
     filetype plugin indent off
     set runtimepath+=$GOROOT/misc/vim
     syntax on 
+
+    " gotags配置
     let g:tagbar_type_go = {
         \ 'ctagstype' : 'go',
         \ 'kinds'     : [
