@@ -4,7 +4,7 @@
     1.markdown语法高亮
     2.vimim, vimim.cjk.txt, vimim.pinyin_quote_sogou.txt
     3.ctags
-    4.taglist
+    4.tagbar
     5.golang支持
 #vimrc 配置如下:
 
