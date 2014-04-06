@@ -152,3 +152,6 @@
       unlet _resp
     endfunction
     autocmd BufWrite *.cpp,*.h,*.c call UPDATE_TAGS()
+
+    "设置交换文件目录
+    set directory=$TMP

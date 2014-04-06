@@ -49,7 +49,7 @@ filetype plugin indent off
 set runtimepath+=$GOROOT/misc/vim
 syntax on 
 
-"gotags 配置
+"gotags配置
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -142,3 +142,6 @@ function! UPDATE_TAGS()
   unlet _resp
 endfunction
 autocmd BufWrite *.cpp,*.h,*.c call UPDATE_TAGS()
+
+"设置交换文件目录
+set directory=$TMP
