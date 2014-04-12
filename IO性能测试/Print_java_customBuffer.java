@@ -1,5 +1,5 @@
 import java.util.Arrays;
-public class Print_java{
+public class Print_java_customBuffer{
 	public static final int SIZE = 8192;
 	public static final int NUM = 1 << 25;
 	public static void main(String[]args)throws Exception {

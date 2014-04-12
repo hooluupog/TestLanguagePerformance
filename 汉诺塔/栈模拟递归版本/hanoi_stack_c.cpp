@@ -106,12 +106,15 @@ void hanoi(int n,char x,char y,char z){
     }
 }
 
+//linux equivalent of windows GetTickCount.
 unsigned long GetTickCount()
 {
-    struct timeval tv;
-    if(gettimeofday(&tv,NULL)!=0)
-        return 0;
-    return (tv.tv_sec*1000) + (tv.tv_usec/1000);
+    struct timespec ts;
+    int rc;
+    if((rc = clock_gettime(CLOCK_MONOTONIC,&ts) != 0)){
+        printf("can't gettime,rc=%d\n",rc);
+    }
+    return (ts.tv_sec*1000) + (ts.tv_nsec/1000000);
 }
 
 int main(){

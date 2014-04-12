@@ -13,7 +13,7 @@ void test(n){
 
 void main(){
   //warm up vm
-  test(3);
+  test(1);
   var sw = new Stopwatch()..start();
   //the test
   test(NUM);
