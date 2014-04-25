@@ -4,7 +4,8 @@ final int NUM = 1 << 25;
 void test(n){
   //var out  = new File('a.out').openSync(mode: WRITE);
   for(int i = 0; i < n;i++){
-    stdout.write(i);
+    stdout.write(i); //stdout write is async, non blocking.
+    //print(i);// print is sync.
     //out.writeStringSync(i.toString());
   }
   //out.close();

@@ -13,9 +13,6 @@ class Stack<Item> extends Object {
  
   bool get isEmpty => _elem.length == 0;
   int get length => _elem.length;
-  void set setsize(size){
-    _elem.length = size;
-  }
  
   void push(Item item) {
     _elem.add(item);
@@ -32,7 +29,6 @@ class Stack<Item> extends Object {
 void hanoi(n,x,y,z) {
   var count = 0;
   var stack = new Stack<HanoiState>();
-  stack.setsize = 20;
   var state = new HanoiState(n, n, 'A', 'B', 'C');
   stack.push(state);
   HanoiState tmpState = null;
