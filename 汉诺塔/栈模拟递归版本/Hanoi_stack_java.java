@@ -4,7 +4,7 @@ public class Hanoi_stack_java{
     public void hanoi(int n){
         int count = 0;
         Stack<Hanoi_state> stack = new Stack<Hanoi_state>();
-        stack.setSize(20);//预分配栈容量
+        stack.setSize(100);//预分配栈容量
         Hanoi_state state = new Hanoi_state(n,n,'A','B','C');
         stack.push(state);
         Hanoi_state tmpState = null;
