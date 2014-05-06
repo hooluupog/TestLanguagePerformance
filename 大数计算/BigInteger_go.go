@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"time"
 	"math/big"
+	"time"
 )
 
 func main() {
-	var a,b string
-	fmt.Scan(&a,&b)
+	var a, b string
+	fmt.Scan(&a, &b)
 	start := time.Now()
 	/** SetString(a string,base int)-----将输入的字符串处理为BigInt
 	** The base argument must be 0 or a value from 2 through MaxBase.
@@ -21,9 +21,12 @@ func main() {
 	**      base开始取0时，当输入的字符串为"0x101...",前缀为"0x",表示该字符串为16
 	**      进制，所以base的实际值为16
 	**/
-	c,_ := big.NewInt(0).SetString(a,10)
-	d,_ := big.NewInt(0).SetString(b,10)
-	e := big.NewInt(0).Mul(c,d).String()
+	c := new(big.Int)
+	d := new(big.Int)
+	e := new(big.Int)
+	c.SetString(a, 10)
+	d.SetString(b, 10)
+	e.Mul(c, d)
 	fmt.Println(e)
 	duration := time.Since(start)
 	fmt.Printf(" %vms\n", duration.Seconds()*1000)
