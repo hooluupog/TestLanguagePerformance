@@ -30,6 +30,7 @@
     	"windows下设置vim编码
     	let &termencoding=&encoding
     	set fileencodings=ucs-bom,utf-8,cp936,gbk
+    	set encoding=utf-8
     	"windows下设置字体
     	set guifont=consolas:h10.5
     	set guioptions-=m "disable menu
