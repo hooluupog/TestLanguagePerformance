@@ -1,4 +1,4 @@
-"  < ÅĞ¶Ï²Ù×÷ÏµÍ³ÊÇ Windows »¹ÊÇ Linux >
+"  < åˆ¤æ–­æ“ä½œç³»ç»Ÿæ˜¯ Windows è¿˜æ˜¯ Linux >
 "------------------------------------------------------------------------------
 if(has("win32") || has("win64") || has("win95") || has("win16"))
     let g:iswindows = 1
@@ -6,7 +6,7 @@ else
     let g:iswindows = 0
 endif
 "------------------------------------------------------------------------------
-"  < ÅĞ¶Ï²Ù×÷ÏµÍ³ÊÇÖÕ¶Ë»¹ÊÇgvim>
+"  < åˆ¤æ–­æ“ä½œç³»ç»Ÿæ˜¯ç»ˆç«¯è¿˜æ˜¯gvim>
 "------------------------------------------------------------------------------
 if has("gui_running")
     let g:isGUI = 1
@@ -15,42 +15,42 @@ else
 endif
 "------------------------------------------------------------------------------
 
-"ÉèÖÃ±à³ÌÊ¹ÓÃµÄ×ÖÌå
+"è®¾ç½®ç¼–ç¨‹ä½¿ç”¨çš„å­—ä½“
 if g:iswindows
-	"windowsÏÂÉèÖÃvim±àÂë
+	"windowsä¸‹è®¾ç½®vimç¼–ç 
 	let &termencoding=&encoding
 	set fileencodings=ucs-bom,utf-8,cp936,gbk
 	set encoding=utf-8
-	"windowsÏÂÉèÖÃ×ÖÌå
+	"windowsä¸‹è®¾ç½®å­—ä½“
 	set guifont=consolas:h10.5
 	set guioptions-=m "disable menu
 	set guioptions-=T "disable toolbar
 endif	
 if !g:iswindows
-	"linuxÏÂÉèÖÃvim±àÂë
+	"linuxä¸‹è®¾ç½®vimç¼–ç 
 	let &termencoding=&encoding
 	set fileencodings=ucs-bom,utf-8,cp936,gbk
-	"linuxÏÂÉèÖÃ×ÖÌå
+	"linuxä¸‹è®¾ç½®å­—ä½“
 	set guifont=Ubuntu\ Mono\ 10.5 
 	set gfw=WenQuanYi\ Micro\ Hei\ Mono\ 10
 	set guioptions-=m "disable menu
 	set guioptions-=T "disable toolbar
 endif	
 
-"ÉèÖÃgvimÖ÷Ìâ
+"è®¾ç½®gvimä¸»é¢˜
 if (g:isGUI)
 	colorscheme morning
 endif
 
-"GoÓïÑÔÅäÖÃµÄ²¿·Ö
-"Óï·¨¸ßÁÁ
+"Goè¯­è¨€é…ç½®çš„éƒ¨åˆ†
+"è¯­æ³•é«˜äº®
 " Clear filetype flags before changing runtimepath to force Vim to reload them.
 filetype off
 filetype plugin indent off
 set runtimepath+=$GOROOT/misc/vim
 syntax on 
 
-"gotagsÅäÖÃ
+"gotagsé…ç½®
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -78,17 +78,17 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
 \ }
-"=================GoÓïÑÔÅäÖÃ²¿·Ö½áÊø====================
+"=================Goè¯­è¨€é…ç½®éƒ¨åˆ†ç»“æŸ====================
 
-"ÏÔÊ¾ĞĞºÅ
+"æ˜¾ç¤ºè¡Œå·
 set nu
 
-"Óï·¨Ëõ½ø"
+"è¯­æ³•ç¼©è¿›"
 autocmd FileType html,css setlocal shiftwidth=2 tabstop=2
 autocmd FileType c,h,cpp,go,java,python,json,javascript setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4
 filetype plugin indent on 
 
-"×Ô¶¯²¹È«ÉèÖÃ:
+"è‡ªåŠ¨è¡¥å…¨è®¾ç½®:
 set completeopt=longest,menuone
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
@@ -104,35 +104,35 @@ autocmd FileType go autocmd BufWritePre <buffer> Fmt
 "Goimports"
 let g:gofmt_command="goimports"
 
-"ÉèÖÃtagbar (tagbar ÒÀÀµctags)
-"Éè¶¨windowsÏµÍ³ÖĞctags³ÌĞòµÄÎ»ÖÃ
+"è®¾ç½®tagbar (tagbar ä¾èµ–ctags)
+"è®¾å®šwindowsç³»ç»Ÿä¸­ctagsç¨‹åºçš„ä½ç½®
 let g:tagbar_ctags_bin = 'D:\Program Files\Vim\vim74\ctags.exe'
-"Éè¶¨linuxÏµÍ³ÖĞctags³ÌĞòµÄÎ»ÖÃ
+"è®¾å®šlinuxç³»ç»Ÿä¸­ctagsç¨‹åºçš„ä½ç½®
 "let g:tagbar_ctags_bin = '/usr/bin/ctags'
-"Éè¶¨tagbar´°¿Ú¿í¶È
+"è®¾å®štagbarçª—å£å®½åº¦
 let g:tagbar_width = 30
-"Ó³ÉäF9´ò¿ª/¹Ø±Õtagbar´°¿Ú 
+"æ˜ å°„F9æ‰“å¼€/å…³é—­tagbarçª—å£ 
 nmap <silent> <F9> :TagbarToggle<cr>    
 
-"ÔÚµÚÒ»´ÎÊ¹ÓÃÊ±£¬cmd½øÈëÏîÄ¿µÄ¸ùÄ¿Â¼ÏÂ£¬Ö´ĞĞÃüÁî£ºctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
-"¿ì½İ¼ü£º Êó±ê·ÅÔÚÒª²é¿´µÄº¯ÊıÉÏ£¬°´ctrl+],½øÈë¶¨Òå£¬ctrl+o·µ»ØÖ®Ç°Î»ÖÃ£»
+"åœ¨ç¬¬ä¸€æ¬¡ä½¿ç”¨æ—¶ï¼Œcmdè¿›å…¥é¡¹ç›®çš„æ ¹ç›®å½•ä¸‹ï¼Œæ‰§è¡Œå‘½ä»¤ï¼šctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+"å¿«æ·é”®ï¼š é¼ æ ‡æ”¾åœ¨è¦æŸ¥çœ‹çš„å‡½æ•°ä¸Šï¼ŒæŒ‰ctrl+],è¿›å…¥å®šä¹‰ï¼Œctrl+oè¿”å›ä¹‹å‰ä½ç½®ï¼›
 
-"ÔÚº¯ÊıÖĞÒÆ¶¯¹â±ê
-"	[{ ×ªµ½ÉÏÒ»¸öÎ»ÓÚµÚÒ»ÁĞµÄ"{"
-"	}]  ×ªµ½ÏÂÒ»¸öÎ»ÓÚµÚÒ»ÁĞµÄ"{"
-"	{   ×ªµ½ÉÏÒ»¸ö¿ÕĞĞ
-"	}   ×ªµ½ÏÂÒ»¸ö¿ÕĞĞ
-"	gd  ×ªµ½µ±Ç°¹â±êËùÖ¸µÄ¾Ö²¿±äÁ¿µÄ¶¨Òå
-"	*   ×ªµ½µ±Ç°¹â±êËùÖ¸µÄµ¥´ÊÏÂÒ»´Î³öÏÖµÄµØ·½
-"	#   ×ªµ½µ±Ç°¹â±êËùÖ¸µÄµ¥´ÊÉÏÒ»´Î³öÏÖµÄµØ·½
+"åœ¨å‡½æ•°ä¸­ç§»åŠ¨å…‰æ ‡
+"	[{ è½¬åˆ°ä¸Šä¸€ä¸ªä½äºç¬¬ä¸€åˆ—çš„"{"
+"	}]  è½¬åˆ°ä¸‹ä¸€ä¸ªä½äºç¬¬ä¸€åˆ—çš„"{"
+"	{   è½¬åˆ°ä¸Šä¸€ä¸ªç©ºè¡Œ
+"	}   è½¬åˆ°ä¸‹ä¸€ä¸ªç©ºè¡Œ
+"	gd  è½¬åˆ°å½“å‰å…‰æ ‡æ‰€æŒ‡çš„å±€éƒ¨å˜é‡çš„å®šä¹‰
+"	*   è½¬åˆ°å½“å‰å…‰æ ‡æ‰€æŒ‡çš„å•è¯ä¸‹ä¸€æ¬¡å‡ºç°çš„åœ°æ–¹
+"	#   è½¬åˆ°å½“å‰å…‰æ ‡æ‰€æŒ‡çš„å•è¯ä¸Šä¸€æ¬¡å‡ºç°çš„åœ°æ–¹
 
-"ÈÃctags·ÖÎöÏîÄ¿Ä¿Â¼½á¹¹Éú³ÉtagÎÄ¼ş
+"è®©ctagsåˆ†æé¡¹ç›®ç›®å½•ç»“æ„ç”Ÿæˆtagæ–‡ä»¶
 set tags=tags;/
 
-"Èç¹û·¢ÏÖ¶à¸ötags£¬×Ô¶¯ÏÔÊ¾³öÀ´ÁĞ±í
+"å¦‚æœå‘ç°å¤šä¸ªtagsï¼Œè‡ªåŠ¨æ˜¾ç¤ºå‡ºæ¥åˆ—è¡¨
 nmap <C-]> :tjump <C-R>=expand("<cword>")<CR><CR>
 
-"vim ×Ô¶¯¸üĞÂctags
+"vim è‡ªåŠ¨æ›´æ–°ctags
 
 function! UPDATE_TAGS()
   let _f_ = expand("%:p")
@@ -144,5 +144,5 @@ function! UPDATE_TAGS()
 endfunction
 autocmd BufWrite *.cpp,*.h,*.c call UPDATE_TAGS()
 
-"ÉèÖÃ½»»»ÎÄ¼şÄ¿Â¼
+"è®¾ç½®äº¤æ¢æ–‡ä»¶ç›®å½•
 set directory=$TMP
