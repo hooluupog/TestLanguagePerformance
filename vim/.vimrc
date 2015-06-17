@@ -1,164 +1,182 @@
-"  < åˆ¤æ–­æ“ä½œç³»ç»Ÿæ˜¯ Windows è¿˜æ˜¯ Linux >
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+"  -------------------------------------------------------------
+"  vundle ²å¼ş
+set nocompatible
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=$VIM/vimfiles/bundle/vundle.vim
+"call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+call vundle#begin('$VIM/vimfiles/bundle')
+" let Vundle manage Vundle, required
+Plugin 'SirVer/ultisnips'
+Plugin 'fatih/vim-go'
+Plugin 'gmarik/Vundle.vim'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+"--------------------------------------------------
+"
+"  < ÅĞ¶Ï²Ù×÷ÏµÍ³ÊÇ Windows »¹ÊÇ Linux >
 "------------------------------------------------------------------------------
 if(has("win32") || has("win64") || has("win95") || has("win16"))
-    let g:iswindows = 1
+	let g:iswindows = 1
 else
-    let g:iswindows = 0
+	let g:iswindows = 0
 endif
 "------------------------------------------------------------------------------
-"  < åˆ¤æ–­æ“ä½œç³»ç»Ÿæ˜¯ç»ˆç«¯è¿˜æ˜¯gvim>
+"  < ÅĞ¶Ï²Ù×÷ÏµÍ³ÊÇÖÕ¶Ë»¹ÊÇgvim>
 "------------------------------------------------------------------------------
 if has("gui_running")
-    let g:isGUI = 1
+	let g:isGUI = 1
 else
-    let g:isGUI = 0
+	let g:isGUI = 0
 endif
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
-" è§£å†³èœå•ä¹±ç   
-"-------------------------------------------------------------------------------  
-set langmenu=zh_CN  
-let $LANG = 'zh_CN.UTF-8'  
+"vim ±àÂëÉèÖÃ
+let &termencoding=&encoding
+set fileencodings=ucs-bom,utf-8,chinese,cp936,gbk
+set encoding=utf-8
+if has("win32")
+	set fileencoding=chinese
+else
+	set fileencoding=utf-8
+endif
+
+" ½â¾ö²Ëµ¥ÂÒÂë  
 source $VIMRUNTIME/delmenu.vim  
 source $VIMRUNTIME/menu.vim  
-  
-"vim æç¤ºä¿¡æ¯ä¹±ç è§£å†³æ–¹æ³•  
-if has("win32")  
-set termencoding=chinese  
 language message zh_CN.UTF-8  
-endif  
 "--------------------------------------------------------------------------------- 
 
 
-"è®¾ç½®ç¼–ç¨‹ä½¿ç”¨çš„å­—ä½“
+"ÉèÖÃ±à³ÌÊ¹ÓÃµÄ×ÖÌå
 if g:iswindows
-	"windowsä¸‹è®¾ç½®vimç¼–ç 
-	let &termencoding=&encoding
-	set fileencodings=ucs-bom,utf-8,cp936,gbk
-	set encoding=utf-8
-	"windowsä¸‹è®¾ç½®å­—ä½“
+	"windowsÏÂÉèÖÃ×ÖÌå
 	set guifont=consolas:h10.5
 	set guioptions-=m "disable menu
 	set guioptions-=T "disable toolbar
 endif	
 if !g:iswindows
-	"linuxä¸‹è®¾ç½®vimç¼–ç 
-	let &termencoding=&encoding
-	set fileencodings=ucs-bom,utf-8,cp936,gbk
-	"linuxä¸‹è®¾ç½®å­—ä½“
+	"linuxÏÂÉèÖÃ×ÖÌå
 	set guifont=Ubuntu\ Mono\ 10.5 
 	set gfw=WenQuanYi\ Micro\ Hei\ Mono\ 10
 	set guioptions-=m "disable menu
 	set guioptions-=T "disable toolbar
 endif	
 
-"è®¾ç½®gvimä¸»é¢˜
+"ÉèÖÃgvimÖ÷Ìâ
 if (g:isGUI)
 	colorscheme morning
 endif
 
-"Goè¯­è¨€é…ç½®çš„éƒ¨åˆ†
-"è¯­æ³•é«˜äº®
-" Clear filetype flags before changing runtimepath to force Vim to reload them.
-filetype off
-filetype plugin indent off
-set runtimepath+=$GOROOT/misc/vim
-syntax on 
-
-"gotagsé…ç½®
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
-"=================Goè¯­è¨€é…ç½®éƒ¨åˆ†ç»“æŸ====================
-
-"æ˜¾ç¤ºè¡Œå·
+syntax on
+"ÏÔÊ¾ĞĞºÅ
 set nu
 
-"è¯­æ³•ç¼©è¿›"
+"Óï·¨Ëõ½ø"
 autocmd FileType html,css setlocal shiftwidth=2 tabstop=2
 autocmd FileType c,h,cpp,go,java,python,json,javascript setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4
 filetype plugin indent on 
 
-"è‡ªåŠ¨è¡¥å…¨è®¾ç½®:
+"×Ô¶¯²¹È«ÉèÖÃ:
 set completeopt=longest,menuone
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+			\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+			\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+"
+" GoÓïÑÔÅäÖÃ
+"Enable goimports to automatically insert import paths instead of gofmt:
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
 
-"Go fmt at save
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
-"Goimports"
-let g:gofmt_command="goimports"
+" ultisnips configuration
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-"è®¾ç½®tagbar (tagbar ä¾èµ–ctags)
-"è®¾å®šwindowsç³»ç»Ÿä¸­ctagsç¨‹åºçš„ä½ç½®
+"ÉèÖÃtagbar (tagbar ÒÀÀµctags)
+"Éè¶¨windowsÏµÍ³ÖĞctags³ÌĞòµÄÎ»ÖÃ
 let g:tagbar_ctags_bin = 'D:\Program Files\Vim\vim74\ctags.exe'
-"è®¾å®šlinuxç³»ç»Ÿä¸­ctagsç¨‹åºçš„ä½ç½®
+"Éè¶¨linuxÏµÍ³ÖĞctags³ÌĞòµÄÎ»ÖÃ
 "let g:tagbar_ctags_bin = '/usr/bin/ctags'
-"è®¾å®štagbarçª—å£å®½åº¦
+"Éè¶¨tagbar´°¿Ú¿í¶È
 let g:tagbar_width = 30
-"æ˜ å°„F9æ‰“å¼€/å…³é—­tagbarçª—å£ 
+"Ó³ÉäF9´ò¿ª/¹Ø±Õtagbar´°¿Ú 
 nmap <silent> <F9> :TagbarToggle<cr>    
 
-"åœ¨ç¬¬ä¸€æ¬¡ä½¿ç”¨æ—¶ï¼Œcmdè¿›å…¥é¡¹ç›®çš„æ ¹ç›®å½•ä¸‹ï¼Œæ‰§è¡Œå‘½ä»¤ï¼šctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
-"å¿«æ·é”®ï¼š é¼ æ ‡æ”¾åœ¨è¦æŸ¥çœ‹çš„å‡½æ•°ä¸Šï¼ŒæŒ‰ctrl+],è¿›å…¥å®šä¹‰ï¼Œctrl+oè¿”å›ä¹‹å‰ä½ç½®ï¼›
+"ÔÚµÚÒ»´ÎÊ¹ÓÃÊ±£¬cmd½øÈëÏîÄ¿µÄ¸ùÄ¿Â¼ÏÂ£¬Ö´ĞĞÃüÁî£ºctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+"¿ì½İ¼ü£º Êó±ê·ÅÔÚÒª²é¿´µÄº¯ÊıÉÏ£¬°´ctrl+],½øÈë¶¨Òå£¬ctrl+o·µ»ØÖ®Ç°Î»ÖÃ£»
 
-"åœ¨å‡½æ•°ä¸­ç§»åŠ¨å…‰æ ‡
-"	[{ è½¬åˆ°ä¸Šä¸€ä¸ªä½äºç¬¬ä¸€åˆ—çš„"{"
-"	}]  è½¬åˆ°ä¸‹ä¸€ä¸ªä½äºç¬¬ä¸€åˆ—çš„"{"
-"	{   è½¬åˆ°ä¸Šä¸€ä¸ªç©ºè¡Œ
-"	}   è½¬åˆ°ä¸‹ä¸€ä¸ªç©ºè¡Œ
-"	gd  è½¬åˆ°å½“å‰å…‰æ ‡æ‰€æŒ‡çš„å±€éƒ¨å˜é‡çš„å®šä¹‰
-"	*   è½¬åˆ°å½“å‰å…‰æ ‡æ‰€æŒ‡çš„å•è¯ä¸‹ä¸€æ¬¡å‡ºç°çš„åœ°æ–¹
-"	#   è½¬åˆ°å½“å‰å…‰æ ‡æ‰€æŒ‡çš„å•è¯ä¸Šä¸€æ¬¡å‡ºç°çš„åœ°æ–¹
+"ÔÚº¯ÊıÖĞÒÆ¶¯¹â±ê
+"	[{ ×ªµ½ÉÏÒ»¸öÎ»ÓÚµÚÒ»ÁĞµÄ"{"
+"	}]  ×ªµ½ÏÂÒ»¸öÎ»ÓÚµÚÒ»ÁĞµÄ"{"
+"	{   ×ªµ½ÉÏÒ»¸ö¿ÕĞĞ
+"	}   ×ªµ½ÏÂÒ»¸ö¿ÕĞĞ
+"	gd  ×ªµ½µ±Ç°¹â±êËùÖ¸µÄ¾Ö²¿±äÁ¿µÄ¶¨Òå
+"	*   ×ªµ½µ±Ç°¹â±êËùÖ¸µÄµ¥´ÊÏÂÒ»´Î³öÏÖµÄµØ·½
+"	#   ×ªµ½µ±Ç°¹â±êËùÖ¸µÄµ¥´ÊÉÏÒ»´Î³öÏÖµÄµØ·½
 
-"è®©ctagsåˆ†æé¡¹ç›®ç›®å½•ç»“æ„ç”Ÿæˆtagæ–‡ä»¶
+"ÈÃctags·ÖÎöÏîÄ¿Ä¿Â¼½á¹¹Éú³ÉtagÎÄ¼ş
 set tags=tags;/
 
-"å¦‚æœå‘ç°å¤šä¸ªtagsï¼Œè‡ªåŠ¨æ˜¾ç¤ºå‡ºæ¥åˆ—è¡¨
+"Èç¹û·¢ÏÖ¶à¸ötags£¬×Ô¶¯ÏÔÊ¾³öÀ´ÁĞ±í
 nmap <C-]> :tjump <C-R>=expand("<cword>")<CR><CR>
 
-"vim è‡ªåŠ¨æ›´æ–°ctags
+"vim ×Ô¶¯¸üĞÂctags
 
 function! UPDATE_TAGS()
-  let _f_ = expand("%:p")
-  let _cmd_ =  '"ctags -a -f /dvr/tags --c++-kinds=+p --fields=+iaS --extra=+q " '  . '"' . _f_ . '"'
- let _resp = system(_cmd_)
-  unlet _cmd_
-  unlet _f_
-  unlet _resp
+	let _f_ = expand("%:p")
+	let _cmd_ =  '"ctags -a -f /dvr/tags --c++-kinds=+p --fields=+iaS --extra=+q " '  . '"' . _f_ . '"'
+	let _resp = system(_cmd_)
+	unlet _cmd_
+	unlet _f_
+	unlet _resp
 endfunction
 autocmd BufWrite *.cpp,*.h,*.c call UPDATE_TAGS()
 
-"è®¾ç½®äº¤æ¢æ–‡ä»¶ç›®å½•
+"ÉèÖÃ½»»»ÎÄ¼şÄ¿Â¼
 set directory=$TMP
