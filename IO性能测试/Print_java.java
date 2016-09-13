@@ -5,7 +5,7 @@ public class Print_java{
         try{
             PrintWriter out = new PrintWriter(System.out);
             for(int i = 0;i < NUM; i++){
-                out.print(i);
+                out.println(i);
             }
             out.close();
         }catch(Exception e){}

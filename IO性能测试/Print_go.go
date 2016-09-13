@@ -1,15 +1,12 @@
 package main
 
-import (
-	"fmt"
-	"bufio"
-	"os"
-)
+import "bytes"
+import "fmt"
 
 func main() {
-	b := bufio.NewWriter(os.Stdout)
-	for i := 0; i < 1 << 25; i++ {
-		fmt.Fprint(b,i)
+	var b bytes.Buffer
+	for i := 0; i < 1<<25; i++ {
+		fmt.Fprintln(&b, i)
+		b.Reset()
 	}
-    b.Flush()
 }

@@ -9,9 +9,9 @@ import (
 )
 
 func DoSomeThing() {
-	a := make([][]interface{}, 10000)
+	a := make([][]interface{}, 5000)
 	for i := 0; i < len(a); i++ {
-		a[i] = make([]interface{}, 10000)
+		a[i] = make([]interface{}, 5000)
 		for j := 0; j < len(a[i]); j++ {
 			a[i][j] = rand.Float64()
 		}

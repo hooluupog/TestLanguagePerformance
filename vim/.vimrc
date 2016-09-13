@@ -24,29 +24,18 @@ function MyDiff()
 endfunction
 
 "  -------------------------------------------------------------
-"  vundle 插件
 set nocompatible
-filetype off                  " required
+filetype off                  
 
-" set the runtime path to include Vundle and initialize
-set rtp+=$VIM/vimfiles/bundle/vundle.vim
-"call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-call vundle#begin('$VIM/vimfiles/bundle')
-" let Vundle manage Vundle, required
-Plugin 'SirVer/ultisnips'
-Plugin 'fatih/vim-go'
-Plugin 'gmarik/Vundle.vim'
+"  vim-plug 插件
+call plug#begin('$VIM/vimfiles/plugged')
+" let vim-plug manage plugins
+Plug 'majutsushi/tagbar'
+"Plugin 'SirVer/ultisnips'
+Plug 'fatih/vim-go'
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
 filetype plugin indent on    " required
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 "--------------------------------------------------
 "
@@ -88,7 +77,7 @@ language message zh_CN.UTF-8
 "设置编程使用的字体
 if g:iswindows
 	"windows下设置字体
-	set guifont=consolas:h10.5
+	set guifont=Consolas:h11
 	set guioptions-=m "disable menu
 	set guioptions-=T "disable toolbar
 endif	
@@ -140,7 +129,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "设置tagbar (tagbar 依赖ctags)
 "设定windows系统中ctags程序的位置
-let g:tagbar_ctags_bin = 'D:\Program Files\Vim\vim74\ctags.exe'
+let g:tagbar_ctags_bin = 'c:\Program Files (x86)\Vim\vim74\ctags.exe'
 "设定linux系统中ctags程序的位置
 "let g:tagbar_ctags_bin = '/usr/bin/ctags'
 "设定tagbar窗口宽度
