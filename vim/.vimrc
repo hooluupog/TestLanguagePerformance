@@ -33,6 +33,7 @@ call plug#begin('$VIM/vimfiles/plugged')
 Plug 'majutsushi/tagbar'
 "Plugin 'SirVer/ultisnips'
 Plug 'fatih/vim-go'
+Plug 'dart-lang/dart-vim-plugin'
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 filetype plugin indent on    " required
@@ -100,7 +101,7 @@ set nu
 
 "语法缩进"
 autocmd FileType html,css setlocal shiftwidth=2 tabstop=2
-autocmd FileType c,h,cpp,go,java,python,json,javascript setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4
+autocmd FileType c,h,cpp,go,dart,java,python,json,javascript setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4
 filetype plugin indent on 
 
 "自动补全设置:
@@ -129,7 +130,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "设置tagbar (tagbar 依赖ctags)
 "设定windows系统中ctags程序的位置
-let g:tagbar_ctags_bin = 'c:\Program Files (x86)\Vim\vim74\ctags.exe'
+let g:tagbar_ctags_bin = 'c:\Program Files (x86)\Vim\vim80\ctags.exe'
 "设定linux系统中ctags程序的位置
 "let g:tagbar_ctags_bin = '/usr/bin/ctags'
 "设定tagbar窗口宽度
