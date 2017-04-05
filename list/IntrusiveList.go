@@ -138,13 +138,6 @@ type E struct {
 func (e *E) Get() *Elem { return &e.Elem }
 
 //////////////////////////////////////////////////////////////
-func ToString(l *List) string {
-	var s string
-	for e := l.First(); e != nil; e = e.Get().Next() {
-		s += strconv.FormatFloat(e.(*E).val.(float64), 'g', -1, 64) + " "
-	}
-	return s
-}
 
 func toSlice(L *List) []float64 {
 	var res []float64
@@ -172,7 +165,7 @@ func main() {
 	for _, v := range l[len(l)/2 : len(l)] {
 		L.AddFirst(&E{val: float64(v)})
 	}
-	fmt.Fprintln(w, ToString(L))
+	fmt.Fprintln(w, toSlice(L))
 	L.ReverseBetween(3, 8)
 	L.Remove(e)
 	L.ReverseBetween(1, L.Len())
