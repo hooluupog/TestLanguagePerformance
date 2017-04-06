@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 
 class ListNode<E extends ListNode<E>> {
   LinkList<E> _list; // ListNode's link. If _list == null,ListNode is
@@ -117,18 +118,23 @@ printList(LinkList L) {
 }
 
 void main() {
-  var l = stdin.readLineSync().split(" ");
   var L = new LinkList();
   var s = new Slist<num>(0);
   L.add(s);
-  for (var i in l.sublist(0, l.length ~/ 2)) {
-    L.add(new Slist<num>(num.parse(i)));
-  }
-  for (var i in l.sublist(l.length ~/ 2, l.length)) {
-    L.addFirst(new Slist<num>(num.parse(i)));
-  }
-  printList(L);
-  L.reverseBetween(3, 8);
-  L.remove(s);
-  L.reverseBetween(1, L.length);
+  var input = new StringBuffer();
+  stdin.transform(ASCII.decoder).listen((data) {
+    input.write(data);
+  }, onDone: () {
+    var l = input.toString().split(" ");
+    for (var i in l.sublist(0, l.length ~/ 2)) {
+      L.add(new Slist<num>(num.parse(i)));
+    }
+    for (var i in l.sublist(l.length ~/ 2, l.length)) {
+      L.addFirst(new Slist<num>(num.parse(i)));
+    }
+    printList(L);
+    L.reverseBetween(3, 8);
+    L.remove(s);
+    L.reverseBetween(1, L.length);
+  });
 }

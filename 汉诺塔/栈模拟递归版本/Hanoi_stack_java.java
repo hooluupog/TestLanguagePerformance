@@ -1,6 +1,5 @@
 import java.util.Stack;
 public class Hanoi_stack_java{
-    //用栈模拟递归汉诺塔
     public void hanoi(int n){
         int count = 0;
         Stack<Hanoi_state> stack = new Stack<Hanoi_state>();
@@ -34,7 +33,7 @@ class Hanoi_state{
     public char des;
     public char tmp;
     public int num;//盘子数目
-    public int disk;//当前移动的盘号
+    public int disk;// 当前移动的盘号
 
     public Hanoi_state(int num,int disk,char src,char tmp,char des){
         this.num = num;

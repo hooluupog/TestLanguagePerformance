@@ -166,6 +166,7 @@ func main() {
 		L.AddFirst(&E{val: float64(v)})
 	}
 	fmt.Fprintln(w, toSlice(L))
+	w.Flush()
 	L.ReverseBetween(3, 8)
 	L.Remove(e)
 	L.ReverseBetween(1, L.Len())
