@@ -122,9 +122,15 @@ void main() {
   var s = new Slist<num>(0);
   L.add(s);
   var input = new StringBuffer();
+  /* At present(SDK version:1.22),stdin.readLineSync() is
+   * unbuffered and its performance is poor.So using async
+   * functions to read data as follows.
+   * Or just create a data file and read from it.
+   * var l = new File('in.txt').readAsStringSync().split(" ");
+   */
   stdin.transform(ASCII.decoder).listen((data) {
     input.write(data);
-  }, onDone: () {
+  }, onDone: () {// call back function
     var l = input.toString().split(" ");
     for (var i in l.sublist(0, l.length ~/ 2)) {
       L.add(new Slist<num>(num.parse(i)));
