@@ -131,7 +131,7 @@ void main() {
   stdin.transform(ASCII.decoder).listen((data) {
     input.write(data);
   }, onDone: () {// call back function
-    var l = input.toString().split(" ");
+    var l = input.toString().split(new RegExp("\\s+"));
     for (var i in l.sublist(0, l.length ~/ 2)) {
       L.add(new Slist<num>(num.parse(i)));
     }
