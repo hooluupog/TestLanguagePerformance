@@ -1,9 +1,3 @@
-/*
- * IntrusiveList.cc
- *
- *  Created on: 2017Äê4ÔÂ13ÈÕ
- *      Author: Light
- */
 #include<iostream>
 #include<vector>
 #include <iterator>
