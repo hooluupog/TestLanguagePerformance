@@ -172,18 +172,18 @@ int main() {
 	Slist<int> e(0);
 	L.add(&e);
 	std::string tmp;
-	std::vector<int> nums;
+	std::vector<Slist<int>*> nums;
 	while (std::getline(std::cin, tmp)) {
 		std::stringstream ss(tmp);
 		int ti;
 		while (ss >> ti)
-			nums.push_back(ti);
+			nums.push_back(new Slist<int>(ti));
 	}
 	for (unsigned int i = 0; i < nums.size() / 2; i++) {
-		L.add(new Slist<int>(nums[i]));
+		L.add(nums[i]);
 	}
 	for (unsigned int i = nums.size() / 2; i < nums.size(); i++) {
-		L.addFirst(new Slist<int>(nums[i]));
+		L.addFirst(nums[i]);
 	}
 	for (auto i : L) {
 		std::cout << i.val_ << ' ';
@@ -193,6 +193,17 @@ int main() {
 	L.remove(&e);
 	L.reverseBetween(1, L.length());
 	//L.reverseBetween(0, L.length());
+    //remove performance Test.
+    int i = nums.size() / 2;
+    int j = i + 1;
+    while (!L.isEmpty()) {
+      if (i >= 0) {
+        L.remove(nums[i--]);
+      }
+      if (j < nums.size()) {
+        L.remove(nums[j++]);
+      }
+    }
 	return 0;
 }
 

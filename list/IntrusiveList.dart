@@ -119,8 +119,9 @@ printList(LinkList L) {
 
 void main() {
   var L = new LinkList();
-  var s = new Slist<num>(0);
-  L.add(s);
+  var l = new List<Slist<num>>();
+  var e = new Slist<num>(0);
+  L.add(e);
   var input = new StringBuffer();
   /* At present(SDK version:1.22),stdin.readLineSync() is
    * unbuffered and its performance is poor.So using async
@@ -130,17 +131,30 @@ void main() {
    */
   stdin.transform(ASCII.decoder).listen((data) {
     input.write(data);
-  }, onDone: () {// call back function
-    var l = input.toString().trim().split(new RegExp(r'[\n\r\n\s+]+'));
+  }, onDone: () {
+    // call back function
+    var s = input.toString().trim().split(new RegExp(r'[\n\r\n\s+]+'));
+    s.forEach((i) => l.add(new Slist<num>(num.parse(i))));
     for (var i in l.sublist(0, l.length ~/ 2)) {
-      L.add(new Slist<num>(num.parse(i)));
+      L.add(i);
     }
     for (var i in l.sublist(l.length ~/ 2, l.length)) {
-      L.addFirst(new Slist<num>(num.parse(i)));
+      L.addFirst(i);
     }
     printList(L);
     L.reverseBetween(3, 8);
-    L.remove(s);
+    L.remove(e);
     L.reverseBetween(1, L.length);
+    //remove performance Test.
+    var i = l.length ~/ 2;
+    var j = i + 1;
+    while (!L.isEmpty) {
+      if (i >= 0) {
+        L.remove(l[i--]);
+      }
+      if (j < l.length) {
+        L.remove(l[j++]);
+      }
+    }
   });
 }

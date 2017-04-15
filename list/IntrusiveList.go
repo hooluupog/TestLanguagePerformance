@@ -148,7 +148,7 @@ func toSlice(L *List) []float64 {
 }
 
 func main() {
-	var l []float64
+	var l []*E
 	L := New()
 	e := &E{val: float64(0)}
 	L.Add(e)
@@ -157,17 +157,30 @@ func main() {
 	scanner.Split(bufio.ScanWords)
 	for scanner.Scan() {
 		f, _ := strconv.ParseFloat(scanner.Text(), 64)
-		l = append(l, f)
+		l = append(l, &E{val: f})
 	}
 	for _, v := range l[0 : len(l)/2] {
-		L.Add(&E{val: float64(v)})
+		L.Add(v)
 	}
 	for _, v := range l[len(l)/2 : len(l)] {
-		L.AddFirst(&E{val: float64(v)})
+		L.AddFirst(v)
 	}
 	fmt.Fprintln(w, toSlice(L))
 	w.Flush()
 	L.ReverseBetween(3, 8)
 	L.Remove(e)
 	L.ReverseBetween(1, L.Len())
+	//remove performance Test.
+	i := len(l) / 2
+	j := i + 1
+	for L.Len() != 0 {
+		if i >= 0 {
+			L.Remove(l[i])
+			i--
+		}
+		if j < len(l) {
+			L.Remove(l[j])
+			j++
+		}
+	}
 }

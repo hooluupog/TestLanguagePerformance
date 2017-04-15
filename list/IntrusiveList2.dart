@@ -119,18 +119,33 @@ printList(LinkList L) {
 
 void main() async {
   var L = new LinkList();
+  var l = new List<Slist<num>>();
   var e = new Slist<num>(0);
   L.add(e);
-  var l = (await stdin.transform(ASCII.decoder).toList())
-      .join().trim().split(new RegExp(r'[\n\r\n\s+]+'));
+  var s = (await stdin.transform(ASCII.decoder).toList())
+      .join()
+      .trim()
+      .split(new RegExp(r'[\n\r\n\s+]+'));
+  s.forEach((i) => l.add(new Slist<num>(num.parse(i))));
   for (var i in l.sublist(0, l.length ~/ 2)) {
-    L.add(new Slist<num>(num.parse(i)));
+    L.add(i);
   }
   for (var i in l.sublist(l.length ~/ 2, l.length)) {
-    L.addFirst(new Slist<num>(num.parse(i)));
+    L.addFirst(i);
   }
   printList(L);
   L.reverseBetween(3, 8);
   L.remove(e);
   L.reverseBetween(1, L.length);
+  //remove performance Test.
+  var i = l.length ~/ 2;
+  var j = i + 1;
+  while (!L.isEmpty) {
+    if (i >= 0) {
+      L.remove(l[i--]);
+    }
+    if (j < l.length) {
+      L.remove(l[j++]);
+    }
+  }
 }

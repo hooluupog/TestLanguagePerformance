@@ -145,6 +145,7 @@ public class IntrusiveList2{
     public static void main(String[]args){
         LinkList L = new LinkList();
         Slist<Integer> elem = new Slist<Integer>(0);
+        ArrayList<Slist<Integer>> l = new ArrayList<>();
         L.add(elem);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String line;
@@ -156,16 +157,32 @@ public class IntrusiveList2{
             }
         }catch(IOException e){e.printStackTrace();}
         String[] strArray = str.toString().trim().split("[\\n\\r\\n\\s+]+");
-        ArrayList<String> l = new ArrayList<>(Arrays.asList(strArray));
-        for (String i : l.subList(0, l.size() / 2)) {
-            L.add(new Slist<Integer>(Integer.parseInt(i)));
+        for(int i = 0;i <strArray.length;i++){
+            l.add(new Slist<Integer>(Integer.parseInt(strArray[i])));
         }
-        for (String i : l.subList(l.size() / 2, l.size())) {
-            L.addFirst(new Slist<Integer>(Integer.parseInt(i)));
+        for (Slist<Integer> i : l.subList(0, l.size() / 2)) {
+            L.add(i);
+        }
+        for (Slist<Integer> i : l.subList(l.size() / 2, l.size())) {
+            L.addFirst(i);
         }
         L.printList();
         L.reverseBetween(3, 8);
         L.remove(elem);
         L.reverseBetween(1, L.length());
+        //L.reverseBetween(0, L.length());
+        //remove performance Test.
+        int i = l.size() / 2;
+        int j = i + 1;
+        while (!L.isEmpty()) {
+            if (i >= 0) {
+                L.remove(l.get(i));
+                i--;
+            }
+            if (j < l.size()) {
+                L.remove(l.get(j));
+                j++;
+            }
+        }
     }
 }

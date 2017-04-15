@@ -146,20 +146,34 @@ public class IntrusiveList{
         LinkList L = new LinkList();
         Slist<Integer> e = new Slist<Integer>(0);
         L.add(e);
-        ArrayList<Integer> l = new ArrayList<Integer>();
+        ArrayList<Slist<Integer>> l = new ArrayList<>();
         Scanner scan = new Scanner(System.in);
         while(scan.hasNextInt()){
-            l.add(scan.nextInt());
+            l.add(new Slist<Integer>(scan.nextInt()));
         }
-        for (int i : l.subList(0, l.size() / 2)) {
-            L.add(new Slist<Integer>(i));
+        for (Slist<Integer> i : l.subList(0, l.size() / 2)) {
+            L.add(i);
         }
-        for (int i : l.subList(l.size() / 2, l.size())) {
-            L.addFirst(new Slist<Integer>(i));
+        for (Slist<Integer> i : l.subList(l.size() / 2, l.size())) {
+            L.addFirst(i);
         }
         L.printList();
         L.reverseBetween(3, 8);
         L.remove(e);
         L.reverseBetween(1, L.length());
+        //L.reverseBetween(0, L.length());
+        //remove performance Test.
+        int i = l.size() / 2;
+        int j = i + 1;
+        while (!L.isEmpty()) {
+            if (i >= 0) {
+                L.remove(l.get(i));
+                i--;
+            }
+            if (j < l.size()) {
+                L.remove(l.get(j));
+                j++;
+            }
+        }
     }
 }
