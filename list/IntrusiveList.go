@@ -2,9 +2,11 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
 
 type item interface {
@@ -50,6 +52,14 @@ func New() *List { return new(List).Init() }
 
 func (l *List) Len() int {
 	return l.len
+}
+
+func (l *List) String() string {
+	var buf bytes.Buffer
+	for e := l.First(); e != nil; e = e.Get().Next() {
+		buf.WriteString(fmt.Sprintf("%v ", e))
+	}
+	return fmt.Sprintf("[%s]", strings.Trim(buf.String(), " "))
 }
 
 func (l *List) First() item { // return first node.
@@ -137,6 +147,10 @@ type E struct {
 
 func (e *E) Get() *Elem { return &e.Elem }
 
+func (e *E) String() string {
+	return fmt.Sprintf("%v", e.val)
+}
+
 //////////////////////////////////////////////////////////////
 
 func toSlice(L *List) []float64 {
@@ -165,7 +179,7 @@ func main() {
 	for _, v := range l[len(l)/2 : len(l)] {
 		L.AddFirst(v)
 	}
-	fmt.Fprintln(w, toSlice(L))
+	fmt.Fprintln(w, L)
 	w.Flush()
 	L.ReverseBetween(3, 8)
 	L.Remove(e)

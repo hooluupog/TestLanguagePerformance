@@ -112,11 +112,6 @@ class Slist<E> extends ListNode {
   String toString() => '${val}';
 }
 
-printList(LinkList L) {
-  var l = L.map((i) => i.toString()).toList();
-  print(l);
-}
-
 void main() {
   var L = new LinkList();
   var l = new List<Slist<num>>();
@@ -141,7 +136,7 @@ void main() {
     for (var i in l.sublist(l.length ~/ 2, l.length)) {
       L.addFirst(i);
     }
-    printList(L);
+    print(L);
     L.reverseBetween(3, 8);
     L.remove(e);
     L.reverseBetween(1, L.length);
