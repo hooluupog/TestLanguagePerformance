@@ -4,8 +4,8 @@ import 'dart:convert';
 class ListNode<E extends ListNode<E>> {
   LinkList<E> _list; // ListNode's link. If _list == null,ListNode is
   // not Linked in any LinkList.
-  ListNode<E> _prev;
-  ListNode<E> _next;
+  E _prev;
+  E _next;
   LinkList<E> get list => _list;
 }
 
@@ -21,23 +21,23 @@ class LinkList<E extends ListNode<E>> extends Iterable<E> {
   bool get isEmpty => _len == 0;
   Iterator<E> get iterator => new _LinkListIterator<E>(this);
 
+  /// append [e] into LinkList.
   void add(E e) {
-    // append [e] into LinkList.
     _insert(e, _head._prev);
   }
 
+  /// add [e] at the first.
   void addFirst(E e) {
-    // add [e] at the first.
     _insert(e, _head);
   }
 
+  /// Insert [e] before [at].
   void insertBefore(E e, E at) {
-    //Insert [e] before [at].
     _insert(e, at._prev);
   }
 
+  /// Insert [e] after [at].
   void insertAfter(E e, E at) {
-    //Insert [e] after [at].
     _insert(e, at);
   }
 
@@ -104,18 +104,19 @@ class _LinkListIterator<E extends ListNode<E>> implements Iterator<E> {
   E get current => _curr;
 }
 
-//  Here is how to use Intrusive LinkList. E wrapped to ListNode<E>
-class Slist<E> extends ListNode {
+// Here is how to use Intrusive LinkList.E wrapped to ListNode<E>.
+class Slist<E> extends ListNode<Slist<E>> {
   E val;
   Slist([this.val]);
   @override
   String toString() => '${val}';
 }
 
-void main() async {
-  var L = new LinkList();
-  var l = new List<Slist<num>>();
+main() async {
+  var L = new LinkList<Slist<num>>();
+  var l = new List<Slist>();
   var e = new Slist<num>(0);
+
   L.add(e);
   var s = (await stdin.transform(ASCII.decoder).toList())
       .join()
@@ -128,7 +129,7 @@ void main() async {
   for (var i in l.sublist(l.length ~/ 2, l.length)) {
     L.addFirst(i);
   }
-  print(L);
+  print(L.toList());
   L.reverseBetween(3, 8);
   L.remove(e);
   L.reverseBetween(1, L.length);
