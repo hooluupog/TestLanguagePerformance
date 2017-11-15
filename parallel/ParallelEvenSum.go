@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -55,14 +56,16 @@ func Sum(list []int) {
 	fmt.Println(res)
 }
 
-func evenSum(list []int, sum chan int) {
+func evenSum(wg *sync.WaitGroup, in <-chan []int, out chan<- int) {
+	defer wg.Done()
+	list := <-in
 	res := 0
 	for _, v := range list {
 		if v%2 == 0 {
 			res += v
 		}
 	}
-	sum <- res
+	out <- res
 }
 
 func totalSum(sum <-chan int) {
@@ -75,7 +78,9 @@ func totalSum(sum <-chan int) {
 
 func main() {
 	list := make([]int, LEN)
-	sum := make(chan int)
+	in := make(chan []int, N)
+	sum := make(chan int, N)
+	var wg sync.WaitGroup
 	for i := range list {
 		list[i] = i
 	}
@@ -91,9 +96,23 @@ func main() {
 	fmt.Printf("Sum using reduce: %vms\n", duration.Seconds()*1000)
 
 	start = time.Now()
+	// Go's approach to concurrency differs from the traditional use of threads and shared memory.
+	// Philosophically, it can be summarized:
+	// Don't communicate by sharing memory; share memory by communicating.
+	// Channels allow you to pass references to data structures between goroutines. If you consider this
+	// as passing around [ownership of the data] (the ability to read and write it), they become a powerful
+	// and expressive synchronization mechanism.
+	// In this program, the convention is that sending a slice (pointer) on a channel passes ownership of
+	// the underlying data from the sender to the receiver. Because of this convention, we know that no
+	// two goroutines will access this slice at the same time. This means we don't have to worry about locking
+	// to prevent concurrent access to these data structures.
+
 	for i, offset := 0, LEN/N; i < N; i++ {
-		go evenSum(list[i*offset:i*offset+offset], sum)
+		in <- list[i*offset : i*offset+offset]
+		wg.Add(1)
+		go evenSum(&wg, in, sum)
 	}
+	wg.Wait()
 	totalSum(sum)
 	duration = time.Since(start)
 	fmt.Printf("parallel sum: %vms\n", duration.Seconds()*1000)
