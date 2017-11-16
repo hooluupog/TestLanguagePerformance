@@ -4,7 +4,9 @@ package main
 
 import "fmt"
 import "time"
+
 var count int = 0
+
 func hanoi(n int, x byte, y byte, z byte) {
 	if n > 0 {
 		hanoi(n-1, x, z, y)
@@ -17,5 +19,5 @@ func main() {
 	start := time.Now()
 	hanoi(25, 'A', 'B', 'C')
 	duration := time.Since(start)
-	fmt.Printf(" %vms\n", duration.Seconds()*1000)
+	fmt.Println(duration)
 }

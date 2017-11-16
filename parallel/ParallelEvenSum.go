@@ -89,12 +89,12 @@ func main() {
 	start := time.Now()
 	loopSum(list)
 	duration := time.Since(start)
-	fmt.Printf("loopSum: %vms\n", duration.Seconds()*1000)
+	fmt.Println("loopSum : ", duration)
 
 	start = time.Now()
 	Sum(list)
 	duration = time.Since(start)
-	fmt.Printf("Sum using reduce: %vms\n", duration.Seconds()*1000)
+	fmt.Println("Sum using reduce : ", duration)
 
 	start = time.Now()
 	// Go's approach to concurrency differs from the traditional use of threads and shared memory.
@@ -117,5 +117,6 @@ func main() {
 	close(in)
 	totalSum(sum)
 	duration = time.Since(start)
-	fmt.Printf("parallel sum: %vms\n", duration.Seconds()*1000)
+	fmt.Println(duration)
+	fmt.Println("parallel sum : ", duration)
 }

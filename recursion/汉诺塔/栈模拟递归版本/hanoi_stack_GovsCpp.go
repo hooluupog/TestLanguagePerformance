@@ -58,5 +58,5 @@ func main() {
 	start := time.Now()
 	hanoi(25, 'A', 'B', 'C')
 	duration := time.Since(start)
-	fmt.Printf(" %vms\n", duration.Seconds()*1000)
+	fmt.Println(duration)
 }

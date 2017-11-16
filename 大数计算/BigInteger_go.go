@@ -29,5 +29,5 @@ func main() {
 	e.Mul(c, d)
 	fmt.Println(e)
 	duration := time.Since(start)
-	fmt.Printf(" %vms\n", duration.Seconds()*1000)
+	fmt.Println(duration)
 }

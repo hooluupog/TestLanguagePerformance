@@ -2,12 +2,14 @@ package main
 
 import "fmt"
 import "time"
+
 //import "runtime/pprof"
 //import "flag"
 //import "log"
 //import "os"
 
 var count int = 0
+
 func hanoi(n int, x byte, y byte, z byte) {
 	if n == 1 {
 		count++
@@ -19,11 +21,12 @@ func hanoi(n int, x byte, y byte, z byte) {
 		hanoi(n-1, y, x, z)
 	}
 }
+
 //var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to this file")
 //var memprofile = flag.String("memprofile", "", "write memory profile to this file")
 //var reuseLoopGraph = flag.Bool("reuseloopgraph", true, "reuse loop graph memory")
 func main() {
-       /*flag.Parse()
+	/*flag.Parse()
 	if *cpuprofile != "" {
 		f,err := os.Create(*cpuprofile)
 		if err != nil {
@@ -36,5 +39,5 @@ func main() {
 	start := time.Now()
 	hanoi(25, 'A', 'B', 'C')
 	duration := time.Since(start)
-	fmt.Printf(" %vms\n", duration.Seconds()*1000)
+	fmt.Println(duration)
 }

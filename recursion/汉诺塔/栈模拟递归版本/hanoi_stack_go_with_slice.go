@@ -17,32 +17,24 @@ type HanoiState struct {
 }
 
 const (
-	SIZE = 50
+	SIZE = 100
 )
 
-func (hs *HanoiState) Set(n int, disk int, x byte, y byte, z byte) {
-	hs.n, hs.disk, hs.x, hs.y, hs.z = n, disk, x, y, z
-}
 func hanoi(n int, x byte, y byte, z byte) {
-	var count, i int
-	var hs [SIZE]HanoiState
-	hs[0] = HanoiState{n, n, x, y, z}
-	i++
-	tmp := hs[0]
-	for i > 0 {
-		i--
-		tmp = hs[i]
+	var count int = 0
+	hs := make([]HanoiState, 0, SIZE)
+	hs = append(hs, HanoiState{n, n, x, y, z})
+	tmp := hs[len(hs)-1]
+	for len(hs) > 0 {
+		tmp, hs = hs[len(hs)-1], hs[:len(hs)-1] //pop()
 		if tmp.n == 1 {
 			count++
 			//fmt.Printf("%d. Move disk %d from %c to %c\n", count, tmp.disk, tmp.x, tmp.z)
 		} else {
 			//push()
-			hs[i].Set(tmp.n-1, tmp.n-1, tmp.y, tmp.x, tmp.z)
-			i++
-			hs[i].Set(1, tmp.n, tmp.x, tmp.y, tmp.z)
-			i++
-			hs[i].Set(tmp.n-1, tmp.n-1, tmp.x, tmp.z, tmp.y)
-			i++
+			hs = append(hs, HanoiState{tmp.n - 1, tmp.n - 1, tmp.y, tmp.x, tmp.z})
+			hs = append(hs, HanoiState{1, tmp.n, tmp.x, tmp.y, tmp.z})
+			hs = append(hs, HanoiState{tmp.n - 1, tmp.n - 1, tmp.x, tmp.z, tmp.y})
 		}
 	}
 }
@@ -51,5 +43,5 @@ func main() {
 	start := time.Now()
 	hanoi(25, 'A', 'B', 'C')
 	duration := time.Since(start)
-	fmt.Printf(" %vms\n", duration.Seconds()*1000)
+	fmt.Println(duration)
 }
