@@ -80,6 +80,7 @@ func main() {
 	list := make([]int, LEN)
 	in := make(chan []int, N)
 	sum := make(chan int, N)
+	defer close(sum)
 	var wg sync.WaitGroup
 	for i := range list {
 		list[i] = i
@@ -113,8 +114,8 @@ func main() {
 		go evenSum(&wg, in, sum)
 	}
 	wg.Wait()
+	close(in)
 	totalSum(sum)
 	duration = time.Since(start)
 	fmt.Printf("parallel sum: %vms\n", duration.Seconds()*1000)
-	close(sum)
 }
