@@ -1,3 +1,11 @@
+#忽略工程属性、调试、发布、临时、链接等等相关目录文件
+/parallel/node_modules/
+*.a
+*.o
+*.exe
+*.tmp
+*.gitignore
+~*
 *.log
 *.swo
 *.swp
@@ -5,4 +13,4 @@
 *.map
 *.deps
 *.lock
-*.packages
+*.packages*

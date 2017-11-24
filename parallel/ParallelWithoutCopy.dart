@@ -32,7 +32,7 @@ parallelSum(int LEN, int N,ReceivePort port) {
 
 main() async {
   final watch = new Stopwatch();
-  int LEN = 5000000000;
+  int LEN = 30000000;
   int N = 4;
   print("sum using loop");
   watch.start();

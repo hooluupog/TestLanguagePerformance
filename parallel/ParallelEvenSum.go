@@ -97,18 +97,9 @@ func main() {
 	fmt.Println("Sum using reduce : ", duration)
 
 	start = time.Now()
-	// Go's approach to concurrency differs from the traditional use of threads and shared memory.
-	// Philosophically, it can be summarized:
-	// Don't communicate by sharing memory; share memory by communicating.
-	// Channels allow you to pass references to data structures between goroutines. If you consider this
-	// as passing around [ownership of the data] (the ability to read and write it), they become a powerful
-	// and expressive synchronization mechanism.
-	// In this program, the convention is that sending a slice (pointer) on a channel passes ownership of
-	// the underlying data from the sender to the receiver. Because of this convention, we know that no
-	// two goroutines will access this slice at the same time. This means we don't have to worry about locking
-	// to prevent concurrent access to these data structures.
-
 	for i, offset := 0, LEN/N; i < N; i++ {
+		// Go does not support transferable data so it directly
+		// shares the ownership of accessing list between goroutines.
 		in <- list[i*offset : i*offset+offset]
 		wg.Add(1)
 		go evenSum(&wg, in, sum)

@@ -28,6 +28,8 @@ parallelSum(List<int> a, int N) {
   var offset = a.length ~/ N;
   final watch = new Stopwatch()..start();
   for (var i = 0; i < N; i++) {
+      // Spawn does not support transferable objects presently, 
+      // it has to copy list a and then transfer it to other isolates.
     Isolate.spawn(psum, [a.sublist(i * offset, i * offset + offset), receivePort.sendPort]);
   }
   receivePort.listen((msg) {
@@ -45,16 +47,16 @@ parallelSum(List<int> a, int N) {
 main() async {
   final watch = new Stopwatch();
   final l = new List<int>.generate(30000000, (i) => i);
-  print("sum using loop");
+  print('sum using loop');
   watch.start();
   print(sum(l));
   watch.stop();
-  print("Elapsed time: ${watch.elapsedMilliseconds}ms");
-  print("sum using where reduce");
+  print('Elapsed time: ${watch.elapsedMilliseconds}ms');
+  print('sum using where reduce');
   watch..reset()..start();
   print(l.where((n) => n % 2 == 0).reduce((a, b) => a + b));
   watch.stop();
-  print("Elapsed time: ${watch.elapsedMilliseconds}ms");
-  print("sum using parallel");
+  print('Elapsed time: ${watch.elapsedMilliseconds}ms');
+  print('sum using parallel');
   parallelSum(l, 3);
 }
