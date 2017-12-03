@@ -124,7 +124,7 @@ class LinkList<E extends ListNode<E>> implements Iterable<E>{
         }
     }
     void printList() {
-        ArrayList<E> l = new ArrayList<E>();
+        List<E> l = new ArrayList<E>();
         Iterator<E> iter = this.iterator();
         iter.forEachRemaining(l::add);
         System.out.println(l);
@@ -145,7 +145,7 @@ public class IntrusiveList2{
     public static void main(String[]args){
         LinkList L = new LinkList();
         Slist<Integer> elem = new Slist<Integer>(0);
-        ArrayList<Slist<Integer>> l = new ArrayList<>();
+        List<Slist<Integer>> l = new ArrayList<>();
         L.add(elem);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String line;
