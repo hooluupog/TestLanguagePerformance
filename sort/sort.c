@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #define INSERTSORT_THRESHOLD  10
 #define timing(func) do { \
     clock_t start=clock();\
@@ -78,6 +79,15 @@ void sort(long *s,int start,int end) {
     sort(s,pivotIdx + 1, end);
 }
 
+void print(long *a,int length){
+    printf("[");
+    int i;
+    for(i = 0;i < length-1;i++){
+        printf("%ld, ",a[i]);
+    }
+    printf("%ld]\n",a[i]);
+}
+
 int main() {
     //==========================================================
     // Get an unknown number of integers into array.
@@ -116,10 +126,16 @@ int main() {
     //=========================================================
 
     int length = i;
+
+    // Generate a new array.
+    long *buff = malloc(i * sizeof *buf);
+    if(buff == NULL) {     // check for NULL        
+        printf("Not enough memory to allocate.\n");
+        return 1;
+    }
+    memcpy(buff,buf,i * sizeof *buf);
+
     timing(sort(buf,0,length-1));
-    //for(i = 0;i < length-1;i++){
-    //    printf("%ld, ",buf[i]);
-    //}
-    //printf("%ld\n",buf[i]);
+    timing(sort(buff,0,length-1));
     return 0;
 }
