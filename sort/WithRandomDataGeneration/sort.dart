@@ -1,15 +1,18 @@
-import 'dart:io';
-import 'dart:math';
-import 'dart:convert';
 import 'dart:collection';
+import 'dart:math';
 import 'MList.dart';
 
 const int INSERTSORT_THRESHOLD = 32;
 
-swap(MList a, int i, int j) {
-  var temp = a[i];
-  a[i] = a[j];
-  a[j] = temp;
+void main() {
+  testCreationAndUsage();
+}
+
+void testCreationAndUsage() {
+  var length = 1000000;
+  var src1 = new List.generate(length, (_) => new Random().nextInt(length));
+  var src3 = new MList.from(src1);
+  Sort(src3);
 }
 
 InsertSort(MList a) {
@@ -47,15 +50,15 @@ Sort(MList s) {
     return;
   }
   var pivotIdx = partition(s);
-  // Differentiating from java, dart's std library sublist is new created
-  // list so it can't be used here.
+  // Differentiating from java, dart's sublist is new created list.
+  // User a wrapper function 'getPart' instead to avoid copying.
   Sort(s.subList(0, pivotIdx));
   Sort(s.subList(pivotIdx + 1));
   return;
 }
 
 int partition(MList a) {
-  var rIndex = new Random().nextInt(2 ^ 64 - 1) % (a.length);
+  var rIndex = new Random().nextInt(2 ^ 64 - 1) % a.length;
   // 将枢值交换到第一个元素
   swap(a, 0, rIndex);
   var pivotkey = a[0]; // 置当前表中第一个元素为枢轴值
@@ -73,23 +76,8 @@ int partition(MList a) {
   return i;
 }
 
-void measure(String text, f()) {
-  var sw = new Stopwatch();
-  sw.start();
-  f();
-  sw.stop();
-  var time = sw.elapsedMilliseconds;
-  print("$text: $time ms.");
-}
-
-main() async {
-  var l = new List<int>();
-  var s = (await stdin.transform(ASCII.decoder).toList())
-      .join()
-      .trim()
-      .split(new RegExp(r'[\n\r\n\s+]+'));
-  s.forEach((i) => l.add(int.parse(i)));
-  var ll = new MList.from(l);
-  measure('time used', () => l.sort());
-  measure('time used', () => Sort(ll));
+swap(MList a, int i, int j) {
+  var temp = a[i];
+  a[i] = a[j];
+  a[j] = temp;
 }

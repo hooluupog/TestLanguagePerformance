@@ -3,9 +3,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Random;
+import static java.util.stream.Collectors.*;
 
-public class Sort2{
-    private static final int INSERTSORT_THRESHOLD = 10;
+public class SortArray{
+    private static final int INSERTSORT_THRESHOLD = 32;
 
     private static void swap(long[] a,int i,int j){
         long temp = a[i];
@@ -55,7 +56,7 @@ public class Sort2{
 
     private static int partition(long[] a,int start,int end) {
         int length = end - start + 1;
-        int rIndex = start + (new Random()).nextInt(2^64-1) % length;
+        int rIndex = start + new Random().nextInt(2^64-1) % length;
         // 将枢值交换到第一个元素
         swap(a,start,rIndex);
         long pivotkey = a[start]; // 置当前表中第一个元素为枢轴值
@@ -72,21 +73,15 @@ public class Sort2{
         swap(a,start,i);
         return i;
     }
+
+    public static void testCreationAndUsage(){
+        int length = 1000000;
+        List<Long> l = new Random().longs(length,0,length).boxed().collect(toList());
+        long ll[] = l.stream().mapToLong(i -> i).toArray();
+        sort(ll,0,ll.length-1);
+    }
+
     public static void main(String[]args) {
-        List<Long> l = new ArrayList<>();
-        Scanner scan = new Scanner(System.in);
-        while(scan.hasNextLong()){
-            l.add(scan.nextLong());
-        }
-        long a[] = l.stream().mapToLong(i -> i).toArray();
-        long b[] = Arrays.copyOf(a,a.length);
-        long start = System.currentTimeMillis();
-        Arrays.sort(a);
-        long end = System.currentTimeMillis();
-        System.out.println("time used: " + (end - start) + "ms");
-        start = System.currentTimeMillis();
-        sort(b,0,b.length-1);
-        end = System.currentTimeMillis();
-        System.out.println("time used: " + (end - start) + "ms");
+        testCreationAndUsage();
     }
 }

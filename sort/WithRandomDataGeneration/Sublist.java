@@ -1,11 +1,11 @@
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.Collections;
 import java.util.Random;
+import static java.util.stream.Collectors.*;
 
-public class Sort{
+public class Sublist{
     private static final int INSERTSORT_THRESHOLD = 32;
+
     private static <E extends Comparable<? super E>> void insertSort(List<E> a) {
         for (int i = 1; i < a.size(); i++) {
             // 依次将a[1]~a[len-1]插入到前面已排序序列
@@ -33,10 +33,11 @@ public class Sort{
 
     // Classic quicksort.
     public static <E extends Comparable<? super E>> void sort(List<E> s) {
-        if (s.size() <= 1) {
+        int length = s.size();
+        if (length <= 1) {
             return;
         }
-        if (s.size() <= INSERTSORT_THRESHOLD) {
+        if (length <= INSERTSORT_THRESHOLD) {
             insertSort(s);
             return;
         }
@@ -65,26 +66,13 @@ public class Sort{
         return i;
     }
 
-    // Java use function interface to implement lambda syntax.
-    // when passing function as parameter,use:
-    //     `Supplier` if it takes nothing.
-    //     `Consumer` if it returns nothing.
-    //     `Runnable` if it does neither.
-    public static void measure(String text, Runnable runnable) {
-        long start = System.currentTimeMillis();
-        runnable.run();
-        long end = System.currentTimeMillis();
-        System.out.println(String.format("%s: %dms.",text, end - start));
+    public static void testCreationAndUsage(){
+        int length = 1000000;
+        List<Long> l = new Random().longs(length,0,length).boxed().collect(toList());
+        sort(l);
     }
 
     public static void main(String[]args) {
-        List<Long> l = new ArrayList<>();
-        Scanner scan = new Scanner(System.in);
-        while(scan.hasNextLong()){
-            l.add(scan.nextLong());
-        }
-        List<Long> ll = new ArrayList<>(l);
-        measure("time used",()-> l.sort((a,b) -> a.compareTo(b)));
-        measure("time used",()-> sort(ll));
+        testCreationAndUsage();
     }
 }

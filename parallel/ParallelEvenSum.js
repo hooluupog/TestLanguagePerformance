@@ -11,25 +11,19 @@ for (var i = 0; i < view.length; i++) {
     view[i] = i;
 }*/
 var view = [];
+var result;
+
 for (var i = 0; i < 30000000; i++) {
     view.push(i);
 }
 
-console.log('sum using loop');
-var start = now();
-console.log(sum(view));
-var elapsed = now() - start;
-console.log('Elapsed time: ' +  elapsed.toFixed(3) + 'ms');
-
-console.log('sum using filter reduce');
-start = now();
+measure('sum using loop',function(){sum(view);});
+measure('sum using filter reduce',function(){
 var res = view.filter(function(i){return i % 2 == 0;}).
     reduce(function(a,b){return a + b;},0);
-console.log(res);
-elapsed = now() - start;
-console.log('Elapsed time: ' +  elapsed.toFixed(3) + 'ms');
+    result = res;
+});
 
-console.log('sum using parallel');
 var N = 3;  
 var offset = view.length / N;
 res = 0;
@@ -37,6 +31,7 @@ var count = 0;
 start = now();
 for(var i = 0;i < N;i++){
     var w =new Worker(psum);
+    // slice will do a shallow copy of origin array.
     w.postMessage(view.slice(i*offset,i*offset+offset));
     // transerable:ON
     //var subBuffer = view.slice(i*offset,i*offset+offset).buffer;
@@ -46,8 +41,8 @@ for(var i = 0;i < N;i++){
         count++;
         if(count == N){
             elapsed = now() - start;
-            console.log(res);
-            console.log('Elapsed time: ' +  elapsed.toFixed(3) + 'ms');
+            result = res;
+            console.log('sum using parallel: ' +  elapsed.toFixed(3) + 'ms');
         }
     };
 }
@@ -57,6 +52,7 @@ function sum(array){
     for(var i = 0;i < array.length;i++){
         if(array[i] % 2 == 0) res += array[i];
     }
+    result = res;
     return res;
 }
 
@@ -73,4 +69,11 @@ function psum() {
         postMessage(res);
         close();
     };
+}
+
+function measure(text,f){
+    var start = now();
+    f();
+    var elapsed = now() - start;
+    console.log(text + ': ' +  elapsed.toFixed(3) + 'ms');
 }

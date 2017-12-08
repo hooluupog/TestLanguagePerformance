@@ -1,3 +1,6 @@
+// ATTENTION:
+// This file will be deprecated once node.js support transferale data.
+
 var Worker = require('webworker-threads').Worker;
 var now = require("performance-now");
 

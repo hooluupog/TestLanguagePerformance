@@ -1,11 +1,13 @@
 import 'dart:isolate';
-import 'dart:async';
+
+var result;
 
 int sum(List<int> a) {
   var res = 0;
   for (var i = 0; i < a.length; i++) {
     if (a[i] % 2 == 0) res += a[i];
   }
+  result = res;
   return res;
 }
 
@@ -22,41 +24,46 @@ void psum(var msg) {
 }
 
 parallelSum(List<int> a, int N) {
+  var sw = new Stopwatch()..start();
   var res = 0;
   var count = 0;
   var receivePort = new ReceivePort();
   var offset = a.length ~/ N;
-  final watch = new Stopwatch()..start();
   for (var i = 0; i < N; i++) {
       // Spawn does not support transferable objects presently, 
       // it has to copy list a and then transfer it to other isolates.
+      // Also,sublist should also be avoided using here because sublist
+      //  function will do a shallow copy from origin list.
+      // Once transferable data is supported by isolate, changing to use
+      //  ByteBuffer to storage data and use typed_data.view to get subdata
+      //  for sending to fully avoid copying.
     Isolate.spawn(psum, [a.sublist(i * offset, i * offset + offset), receivePort.sendPort]);
   }
   receivePort.listen((msg) {
     res += msg;
     count++;
     if (count == N){
-        print(res);
-        watch.stop();
-        print("Elapsed time: ${watch.elapsedMilliseconds}ms");
+        result = res;
+        sw.stop();
+        print('sum using parallel: ${sw.elapsedMilliseconds}ms.');
         receivePort.close();
     }
   });
 }
 
+void measure(String text, f()) {
+  var sw = new Stopwatch();
+  sw.start();
+  f();
+  sw.stop();
+  var time = sw.elapsedMilliseconds;
+  print("$text: ${time}ms.");
+}
+
 main() async {
-  final watch = new Stopwatch();
   final l = new List<int>.generate(30000000, (i) => i);
-  print('sum using loop');
-  watch.start();
-  print(sum(l));
-  watch.stop();
-  print('Elapsed time: ${watch.elapsedMilliseconds}ms');
-  print('sum using where reduce');
-  watch..reset()..start();
-  print(l.where((n) => n % 2 == 0).reduce((a, b) => a + b));
-  watch.stop();
-  print('Elapsed time: ${watch.elapsedMilliseconds}ms');
-  print('sum using parallel');
+  measure('sum using loop',() => sum(l));
+  measure('sum using where reduce',() => 
+          l.where((n) => n % 2 == 0).reduce((a, b) => a + b));
   parallelSum(l, 3);
 }

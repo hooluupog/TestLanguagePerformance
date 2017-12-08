@@ -1,3 +1,6 @@
+// ATTENTION:
+// This file will be deprecated once isolate support transferale data.
+
 import 'dart:isolate';
 import 'dart:async';
 

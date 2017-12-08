@@ -1,10 +1,13 @@
 import 'dart:async';
 
+var result;
+
 int sum(List<int> a) {
   var res = 0;
   for (var i = 0; i < a.length; i++) {
     if (a[i] % 2 == 0) res += a[i];
   }
+  result = res;
   return res;
 }
 
@@ -26,25 +29,31 @@ void totalSum(List<int> a, int N) async {
   }
   var list = await Future.wait(futures);
   list.forEach((i) => res += i);
-  print(res);
+  result = res;
 }
 
-main() async {
-  final watch = new Stopwatch();
+void measure(String text, f()) {
+  var sw = new Stopwatch();
+  sw.start();
+  f();
+  sw.stop();
+  var time = sw.elapsedMilliseconds;
+  print("$text: $time ms.");
+}
+
+void measureAsync(String text, f()) async {
+  var sw = new Stopwatch();
+  sw.start();
+  await f();
+  sw.stop();
+  var time = sw.elapsedMilliseconds;
+  print("$text: $time ms.");
+}
+
+main() {
   final l = new List<int>.generate(30000000, (i) => i);
-  print("sum using loop");
-  watch.start();
-  print(sum(l));
-  watch.stop();
-  print("Elapsed time: ${watch.elapsedMilliseconds}ms");
-  print("sum using where reduce");
-  watch..reset()..start();
-  print(l.where((n) => n % 2 == 0).reduce((a, b) => a + b));
-  watch.stop();
-  print("Elapsed time: ${watch.elapsedMilliseconds}ms");
-  print("Asynchronous sum");
-  watch..reset()..start();
-  await totalSum(l, 100);
-  watch.stop();
-  print("Elapsed time: ${watch.elapsedMilliseconds}ms");
+  measure('sum using loop',() => sum(l));
+  measure('sum using where reduce',() => 
+          l.where((n) => n % 2 == 0).reduce((a, b) => a + b));
+  measureAsync('sum using Asynchronous',() => totalSum(l, 100));
 }

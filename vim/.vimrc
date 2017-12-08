@@ -12,8 +12,11 @@ function MyDiff()
   let eq = ''
   if $VIMRUNTIME =~ ' '
     if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
+      "解决：E97: 无法创建 diff
+      "let cmd = '""' . $VIMRUNTIME . '\diff"'
+      "let eq = '"'
+      let cmd = '"' . $VIMRUNTIME . '\diff"'
+      let eq = '""'
     else
       let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
     endif
@@ -31,7 +34,8 @@ filetype off
 call plug#begin('$VIM/vimfiles/plugged')
 " let vim-plug manage plugins
 Plug 'majutsushi/tagbar'
-"Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'fatih/vim-go'
 Plug 'dart-lang/dart-vim-plugin'
 " All of your Plugins must be added before the following line
@@ -101,7 +105,7 @@ set nu
 
 "语法缩进"
 autocmd FileType html,css setlocal shiftwidth=2 tabstop=2
-autocmd FileType c,h,cpp,go,dart,java,python,json,javascript setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4
+autocmd FileType c,h,cc,cpp,go,dart,java,python,json,javascript setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4
 filetype plugin indent on 
 
 "自动补全设置:
@@ -130,7 +134,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 "设置tagbar (tagbar 依赖ctags)
 "设定windows系统中ctags程序的位置
-let g:tagbar_ctags_bin = 'c:\Program Files (x86)\Vim\vim80\ctags.exe'
+let g:tagbar_ctags_bin = 'c:\Program Files\Vim\vim80\ctags.exe'
 "设定linux系统中ctags程序的位置
 "let g:tagbar_ctags_bin = '/usr/bin/ctags'
 "设定tagbar窗口宽度

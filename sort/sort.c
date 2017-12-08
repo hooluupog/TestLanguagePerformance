@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#define INSERTSORT_THRESHOLD  10
+#define INSERTSORT_THRESHOLD  32
 #define timing(func) do { \
     clock_t start=clock();\
     func; \

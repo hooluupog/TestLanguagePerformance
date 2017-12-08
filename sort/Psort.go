@@ -13,7 +13,7 @@ import (
 
 const (
 	MAXGOROUTINES          = 30
-	INSERTSORT_THRESHOLD   = 10
+	INSERTSORT_THRESHOLD   = 32
 	STOPPARALELL_THRESHOLD = 1000
 )
 
@@ -124,6 +124,13 @@ func psort(s []int, done chan int, workers chan int) {
 	return
 }
 
+func measure(text string, f func()) {
+	start := time.Now()
+	f()
+	elapsed := time.Since(start)
+	fmt.Println(fmt.Sprintf("%s: %v.", text, elapsed))
+}
+
 func main() {
 	var a int
 	var l []int
@@ -138,14 +145,8 @@ func main() {
 	}
 	ll := make([]int, len(l))
 	copy(ll, l)
-	start := time.Now()
-	Qsort(l)
-	elapsed := time.Since(start)
-	fmt.Println("Classic QuickSort time used: ", elapsed)
-	start = time.Now()
-	Psort(ll)
-	elapsed = time.Since(start)
-	fmt.Println("Parallel QuickSort time used: ", elapsed)
+	measure("time used", func() { Qsort(l) })
+	measure("time used", func() { Psort(ll) })
 	//fmt.Fprintln(w, l)
 	//w.Flush()
 }
