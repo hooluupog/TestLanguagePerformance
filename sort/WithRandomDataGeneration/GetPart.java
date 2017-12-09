@@ -5,19 +5,19 @@ import java.util.Random;
 import static java.util.stream.Collectors.*;
 import java.lang.StringBuilder;
 
-interface ListI<E>{
-    ListI<E> getPart(int fromIndex,int toIndex); 
+interface MyList<E>{
+    MyList<E> getPart(int fromIndex,int toIndex); 
     int size();
     E set(int index, E element);
     E get(int index);
     void swap(int i,int j);
 }
 
-class MList<E> implements ListI<E>{
+class MyArrayList<E> implements MyList<E>{
     private Object[] elementData;
     private int size;
 
-    public MList(Collection<? extends E> c) {
+    public MyArrayList(Collection<? extends E> c) {
         elementData = c.toArray();
         size = elementData.length;
         if (elementData.getClass() != Object[].class)
@@ -71,7 +71,7 @@ class MList<E> implements ListI<E>{
         return "Index: "+index+", Size: "+size;
     }
 
-    public ListI<E> getPart(int fromIndex, int toIndex) {
+    public MyList<E> getPart(int fromIndex, int toIndex) {
         subListRangeCheck(fromIndex, toIndex, size);
         return new SubList(0,fromIndex, toIndex);
     }
@@ -86,7 +86,7 @@ class MList<E> implements ListI<E>{
                     ") > toIndex(" + toIndex + ")");
     }
 
-    private class SubList implements ListI<E> {
+    private class SubList implements MyList<E> {
         private final int offset;
         private int size;
 
@@ -97,14 +97,14 @@ class MList<E> implements ListI<E>{
 
         public E set(int index, E element) {
             rangeCheck(index);
-            E oldValue = MList.this.elementData(offset + index);
-            MList.this.elementData[offset + index] = element;
+            E oldValue = MyArrayList.this.elementData(offset + index);
+            MyArrayList.this.elementData[offset + index] = element;
             return oldValue;
         }
 
         public E get(int index) {
             rangeCheck(index);
-            return MList.this.elementData(offset + index);
+            return MyArrayList.this.elementData(offset + index);
         }
 
         public String toString(){
@@ -123,17 +123,17 @@ class MList<E> implements ListI<E>{
         }
 
         public void swap(int i,int j){
-            E temp = MList.this.elementData(offset + i);
-            MList.this.elementData[offset + i] = 
-                MList.this.elementData(offset + j);
-            MList.this.elementData[offset + j] = temp;
+            E temp = MyArrayList.this.elementData(offset + i);
+            MyArrayList.this.elementData[offset + i] = 
+                MyArrayList.this.elementData(offset + j);
+            MyArrayList.this.elementData[offset + j] = temp;
         }
 
         public int size() {
             return this.size;
         }
 
-        public ListI<E> getPart(int fromIndex, int toIndex) {
+        public MyList<E> getPart(int fromIndex, int toIndex) {
             subListRangeCheck(fromIndex, toIndex, size);
             return new SubList(offset,fromIndex, toIndex);
         }
@@ -149,7 +149,7 @@ class MList<E> implements ListI<E>{
 public class GetPart{
     private static final int INSERTSORT_THRESHOLD = 32;
 
-    private static <E extends Comparable<? super E>> void insertSort(ListI<E> a) {
+    private static <E extends Comparable<? super E>> void insertSort(MyList<E> a) {
         for (int i = 1; i < a.size(); i++) {
             // 依次将a[1]~a[len-1]插入到前面已排序序列
             E temp = a.get(i); // 暂存a[i]
@@ -174,7 +174,7 @@ public class GetPart{
         }
     }
 
-    public static <E extends Comparable<? super E>> void sort(ListI<E> s) {
+    public static <E extends Comparable<? super E>> void sort(MyList<E> s) {
         int length = s.size();
         if (length <= 1) {
             return;
@@ -189,7 +189,7 @@ public class GetPart{
         sort(s.getPart(pivotIdx + 1, s.size()));
     }
 
-    private static <E extends Comparable<? super E>> int partition(ListI<E> a) {
+    private static <E extends Comparable<? super E>> int partition(MyList<E> a) {
         int rIndex = new Random().nextInt(2^64-1) % a.size();
         // 将枢值交换到第一个元素
         a.swap(0,rIndex);
@@ -211,7 +211,7 @@ public class GetPart{
     public static void testCreationAndUsage(){
         int length = 1000000;
         List<Long> l = new Random().longs(length,0,length).boxed().collect(toList());
-        ListI<Long> ll = new MList<>(l);
+        MyList<Long> ll = new MyArrayList<>(l);
         sort(ll);
     }
 

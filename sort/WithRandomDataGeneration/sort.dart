@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'dart:math';
-import 'MList.dart';
+import 'myList.dart';
 
 const int INSERTSORT_THRESHOLD = 32;
 
@@ -11,11 +11,11 @@ void main() {
 void testCreationAndUsage() {
   var length = 1000000;
   var src1 = new List.generate(length, (_) => new Random().nextInt(length));
-  var src3 = new MList.from(src1);
+  var src3 = new MyList.from(src1);
   Sort(src3);
 }
 
-InsertSort(MList a) {
+InsertSort(MyList a) {
   for (var i = 1; i < a.length; i++) {
     // 依次将a[1]~a[len-1]插入到前面已排序序列
     var temp = a[i]; // 暂存a[i]
@@ -41,7 +41,7 @@ InsertSort(MList a) {
 }
 
 // Classic quicksort.
-Sort(MList s) {
+Sort(MyList s) {
   if (s.length <= 1) {
     return;
   }
@@ -57,7 +57,7 @@ Sort(MList s) {
   return;
 }
 
-int partition(MList a) {
+int partition(MyList a) {
   var rIndex = new Random().nextInt(2 ^ 64 - 1) % a.length;
   // 将枢值交换到第一个元素
   swap(a, 0, rIndex);
@@ -76,7 +76,7 @@ int partition(MList a) {
   return i;
 }
 
-swap(MList a, int i, int j) {
+swap(MyList a, int i, int j) {
   var temp = a[i];
   a[i] = a[j];
   a[j] = temp;

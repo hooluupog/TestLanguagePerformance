@@ -2,17 +2,17 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:convert';
 import 'dart:collection';
-import 'MList.dart';
+import 'myList.dart';
 
 const int INSERTSORT_THRESHOLD = 32;
 
-swap(MList a, int i, int j) {
+swap(MyList a, int i, int j) {
   var temp = a[i];
   a[i] = a[j];
   a[j] = temp;
 }
 
-InsertSort(MList a) {
+InsertSort(MyList a) {
   for (var i = 1; i < a.length; i++) {
     // 依次将a[1]~a[len-1]插入到前面已排序序列
     var temp = a[i]; // 暂存a[i]
@@ -38,7 +38,7 @@ InsertSort(MList a) {
 }
 
 // Classic quicksort.
-Sort(MList s) {
+Sort(MyList s) {
   if (s.length <= 1) {
     return;
   }
@@ -54,7 +54,7 @@ Sort(MList s) {
   return;
 }
 
-int partition(MList a) {
+int partition(MyList a) {
   var rIndex = new Random().nextInt(2 ^ 64 - 1) % (a.length);
   // 将枢值交换到第一个元素
   swap(a, 0, rIndex);
@@ -89,7 +89,7 @@ main() async {
       .trim()
       .split(new RegExp(r'[\n\r\n\s+]+'));
   s.forEach((i) => l.add(int.parse(i)));
-  var ll = new MList.from(l);
+  var ll = new MyList.from(l);
   measure('time used', () => l.sort());
   measure('time used', () => Sort(ll));
 }
